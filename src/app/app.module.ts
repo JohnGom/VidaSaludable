@@ -1,3 +1,4 @@
+import { ServiceModalService } from './service-modal/service-modal.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -20,7 +21,14 @@ import { FisiologicasComponent } from './fisiologicas/fisiologicas.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from "@angular/flex-layout";
-import { MdDatepickerModule, MdCardModule, MdButtonModule, MdTabsModule, MdTableModule } from '@angular/material';
+import { MdDatepickerModule, 
+  MdCardModule, 
+  MdButtonModule, 
+  MdTabsModule, 
+  MdTableModule,
+  MdDialogModule, 
+  MdInputModule, 
+  MdButtonToggleModule } from '@angular/material';
 
 import { AuthserviceService } from './servicios/authservice.service';
 import { ProgramService } from './servicios/programas/program.service';
@@ -33,6 +41,11 @@ import { CoordinadorComponent } from './coordinador/coordinador.component';
 import { InfoProgramaComponent } from './coordinador/info-programa/info-programa.component';
 import { InfoJornadaComponent } from './coordinador/info-jornada/info-jornada.component';
 import { AssignedLinkComponent } from './assigned-link/assigned-link.component';
+import { NewProgramComponent } from './coordinador/info-programa/new-program/new-program.component';
+import { UpdateProgramComponent } from './coordinador/info-programa/update-program/update-program.component';
+import { NewJornadaComponent } from './coordinador/info-jornada/new-jornada/new-jornada.component';
+import { UpdateJornadaComponent } from './coordinador/info-jornada/update-jornada/update-jornada.component';
+ServiceModalService
 
 @NgModule({
   declarations: [
@@ -53,7 +66,11 @@ import { AssignedLinkComponent } from './assigned-link/assigned-link.component';
     CoordinadorComponent,
     InfoProgramaComponent,
     InfoJornadaComponent,
-    AssignedLinkComponent
+    AssignedLinkComponent,
+    NewProgramComponent,
+    UpdateProgramComponent,
+    NewJornadaComponent,
+    UpdateJornadaComponent
   ],
   imports: [
     BrowserModule,
@@ -69,14 +86,29 @@ import { AssignedLinkComponent } from './assigned-link/assigned-link.component';
     MdCardModule,
     MdTabsModule,
     MdTableModule,
-    CdkTableModule
+    CdkTableModule,
+    MdCardModule, 
+    MdDialogModule, 
+    MdInputModule, 
+    MdButtonToggleModule
   ],
   providers: [
     AuthGuard,
     ProgramService,
     JornadaService,
-    AuthserviceService
+    AuthserviceService,
+    ServiceModalService,
+    NewProgramComponent,
+    UpdateProgramComponent,
+    NewJornadaComponent,
+    UpdateJornadaComponent
   ],
+  entryComponents: [ 
+    NewProgramComponent,
+    UpdateProgramComponent,
+    NewJornadaComponent,
+    UpdateJornadaComponent
+    ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

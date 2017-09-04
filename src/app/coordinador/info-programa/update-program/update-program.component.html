@@ -1,0 +1,19 @@
+<form class="form">
+    <h2>Actualizar Programa</h2>
+  <div>
+    <md-form-field class="example-full-width">
+        <input mdInput [(ngModel)]="name" name="name" placeholder="name" >
+    </md-form-field>
+  </div>
+  <div>
+    <md-form-field class="example-full-width">
+        <input mdInput [(ngModel)]="description" name="description" placeholder="description">
+    </md-form-field>
+  </div>
+  <div>
+    <md-form-field class="example-full-width">
+        <input mdInput [(ngModel)]="entity" name="entity" placeholder="entity">
+    </md-form-field>
+  </div>
+  <button md-raised-button color="primary" (click)="update()">Actualizar</button>
+</form>

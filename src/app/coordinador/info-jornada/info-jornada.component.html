@@ -1,3 +1,26 @@
-<p>
-  info-jornada works!
-</p>
+<table class="table table-inverse">
+<tr>
+  <td>Id</td>
+  <td>Nombre</td>
+  <td>Departamento</td>
+  <td>Municipio</td>
+  <td>Responsable</td>
+  <td>Fecha</td>
+  <td>Tipo</td>
+  <td>Lugar</td>
+  <td>Acción</td>
+</tr>
+<tr *ngFor="let jornada of jornadas">
+  <td>{{jornada.id}}</td>
+  <td>{{jornada.name}}</td>
+  <td>{{jornada.department}}</td>
+  <td>{{jornada.city}}</td>
+  <td>{{jornada.infoEncargado.username}}</td>
+  <td>{{jornada.date}}</td>
+  <td>{{jornada.tipo}}</td>
+  <td>{{jornada.place}}</td>
+  <td><button (click)="updateJornada(jornada)">Update</button></td>
+  <td><button (click)="deleteJornada(jornada.id)">Delete</button></td>
+</tr>
+</table>
+<button (click)="createJornada()">Create</button>

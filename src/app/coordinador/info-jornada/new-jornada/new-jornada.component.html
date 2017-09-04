@@ -1,0 +1,33 @@
+<form class="form">
+    <h2>Crear Programa</h2>
+  <div>
+    <md-form-field class="example-full-width">
+        <input mdInput [(ngModel)]="name" name="name" placeholder="Nombre" >
+    </md-form-field>
+    <md-form-field class="example-full-width">
+        <input mdInput [(ngModel)]="encargado" name="encargado" placeholder="Encargado">
+    </md-form-field>
+  </div>
+  <div>
+    <md-form-field class="example-full-width">
+        <input mdInput [(ngModel)]="city" name="city" placeholder="Ciudad">
+    </md-form-field>
+    <md-form-field class="example-full-width">
+        <input mdInput [(ngModel)]="department" name="department" placeholder="Departamento">
+    </md-form-field>
+  </div>
+  <div>
+    <md-form-field class="example-full-width">
+        <input mdInput type="date" [(ngModel)]="date" name="colaborationEntity" placeholder="Fecha">
+    </md-form-field>
+    <md-form-field class="example-full-width">
+        <input mdInput [(ngModel)]="tipo" name="tipo" placeholder="tipo">
+    </md-form-field>
+  </div>
+  <div>
+    <md-form-field class="example-full-width">
+        <input mdInput [(ngModel)]="place" name="place" placeholder="Lugar">
+    </md-form-field>
+  </div>
+  <button md-raised-button color="primary" (click)="save()">Guardar</button>
+</form>

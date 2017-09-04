@@ -1,3 +1,18 @@
-<p>
-  info-programa works!
-</p>
+<table class="table table-inverse">
+<tr>
+  <td>Id</td>
+  <td>Name</td>
+  <td>Description</td>
+  <td>Colaboration Entity</td>
+  <td>Actions</td>
+</tr>
+<tr *ngFor="let program of programs">
+  <td>{{program.id}}</td>
+  <td>{{program.name}}</td>
+  <td>{{program.description}}</td>
+  <td>{{program.entity}}</td>
+  <td><button (click)="updateProgram(program)">Update</button></td>
+  <td><button (click)="deleteProgram(program.id)">Delete</button></td>
+</tr>
+</table>
+<button (click)="createPrograms()">Create</button>
