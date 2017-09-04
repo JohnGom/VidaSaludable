@@ -1,0 +1,28 @@
+
+<div class="jornada-form row" >
+  <!--Menu -->
+    <div class="list-group list col-sm-3">
+      <a [routerLink]="['socio']" routerLinkActive="active"
+      class="list-group-item" >Datos Sociodemográficos</a>
+      <a [routerLink]="['fisio']" routerLinkActive="active"
+       class="list-group-item">Variables Fisiológicas</a>
+      <a [routerLink]="['bio']" routerLinkActive="active"
+       class="list-group-item">Variables Bioquímicas</a>
+      <a [routerLink]="['control']" routerLinkActive="active"
+      class="list-group-item">Control de conductas de riesgo</a>
+      <a [routerLink]="['ejercicio']" routerLinkActive="active"
+      class="list-group-item">Dimensión Ejercicio</a>
+      <a [routerLink]="['nutricion']" routerLinkActive="active"
+      class="list-group-item">Dimensión Nutricional</a>
+      <a [routerLink]="['sueno']" routerLinkActive="active"
+      class="list-group-item">Dimensión Sueño</a>
+      <a [routerLink]="['espiritual']" routerLinkActive="active"
+      class="list-group-item">Dimensión espiritualidad</a>
+    </div>
+
+    <router-outlet></router-outlet>
+    <!--Fin Menu-->
+
+     <!-- Fin Recuadro -->
+</div>
+

@@ -1,0 +1,11 @@
+<md-tab-group [selectedIndex]="indexSelected">
+    <md-tab label="Programa">
+        <app-programa></app-programa>  
+    </md-tab>
+    <md-tab label="Jornadas">
+        <app-jornada [idprogram]="idprogram"></app-jornada>  
+    </md-tab>
+    <md-tab label="Jornada Activa">
+        <app-jornadaActiva></app-jornadaActiva>
+    </md-tab>
+</md-tab-group>

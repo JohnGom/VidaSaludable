@@ -1,0 +1,20 @@
+<table class="table table-inverse">
+  <thead>
+    <tr>
+      <th>Tipo</th>
+      <th>Fecha</th>
+      <th>Lugar</th>
+      <th>Ciudad</th>
+      <th>Departamento</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let row of dataSource">
+      <td>{{row.tipo}}</td>
+      <td>{{row.date}}</td>
+      <td>{{row.place}}</td>
+      <td>{{row.department}}</td>
+      <td>{{row.city}}</td>
+    </tr>
+  </tbody>
+</table>

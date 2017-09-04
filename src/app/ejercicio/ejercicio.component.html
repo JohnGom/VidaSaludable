@@ -1,0 +1,28 @@
+
+<h3>Dimensión Ejercicio</h3>
+<p>Actividad física regular, significa que usted realiza actividad física al menos 30 minutos al día y por lo menos 5 días a la semana. Por ejemplo, usted puede tomar un paseo de 30 minutos o 3 caminatas de 10 minutos para un total de 30 minutos por día.</p>
+<form class="form-socio" class="col-sm-6">
+  <div class="form-group">
+    <label for="insurer">Con esta aclaración, ¿actualmente usted hace actividad física con regularidad?</label>
+    <select class="form-control">
+      <option>...seleccionar...</option>
+      <option>Si</option>
+      <option>No</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="insurer">¿Ha realizado actividad física con regularidad en  los últimos 6 meses?</label>
+    <select class="form-control">
+      <option>...seleccionar...</option>
+      <option>Si</option>
+      <option>No</option>
+    </select>
+  </div>
+  <button type="button" class="btn btn-primary" (click)=interpretationConfirm()>Interretacion</button>
+  <nav aria-label="controles">
+  <ul class="pager">
+    <li><a [routerLink]="['../control']">Anterior</a></li>
+    <li><a [routerLink]="['../nutricion']">Siguiente</a></li>
+  </ul>
+</nav>
+</form>

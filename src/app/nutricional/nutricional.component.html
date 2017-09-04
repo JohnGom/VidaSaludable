@@ -1,0 +1,69 @@
+
+<h3>Dimensión Nutricional</h3>
+<form class="form-socio" class="col-sm-6">
+  <div class="form-group">
+    <label >¿Cuántas porciones de frutas come en promedio por día? Una porción es el equivalente al puño de su mano.</label>
+    <input type="text" id="" class="form-control" aria-describedby="helpBlock">
+  </div>
+  <div class="form-group">
+    <label >¿Cuántas porciones de verduras come en promedio por día? Una porción es el equivalente al puño de su mano.</label>
+    <input type="text" id="" class="form-control" aria-describedby="helpBlock">
+  </div>
+  <div class="form-group">
+    <label for="insurer">¿Usted controla el consumo de grasas en sus comidas diarias?</label>
+    <select class="form-control">
+      <option>...seleccionar...</option>
+      <option>Siempre</option>
+      <option>Con alguna frecuencia</option>
+      <option>Con Poca frecuencia </option>
+      <option>Nunca</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="insurer">¿Usted controla el consumo de sal en sus comidas diarias?</label>
+    <select class="form-control">
+      <option>...seleccionar...</option>
+      <option>Siempre</option>
+      <option>Con alguna frecuencia</option>
+      <option>Con Poca frecuencia </option>
+      <option>Nunca</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="insurer">¿Usted controla el consumo de azúcar en sus comidas diarias?</label>
+    <select class="form-control">
+      <option>...seleccionar...</option>
+      <option>Siempre</option>
+      <option>Con alguna frecuencia</option>
+      <option>Con Poca frecuencia </option>
+      <option>Nunca</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="insurer">¿Usted consume regularmente tres comidas al día?</label>
+    <select class="form-control">
+      <option>...seleccionar...</option>
+      <option>Siempre</option>
+      <option>Con alguna frecuencia</option>
+      <option>Con Poca frecuencia </option>
+      <option>Nunca</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="insurer">¿Usted consume regularmente 5 a 8 vasos de agua al día?</label>
+    <select class="form-control">
+      <option>...seleccionar...</option>
+      <option>Siempre</option>
+      <option>Con alguna frecuencia</option>
+      <option>Con Poca frecuencia </option>
+      <option>Nunca</option>
+    </select>
+  </div>
+  <button type="button" class="btn btn-primary" (click)=interpretationConfirm()>Interretacion</button>
+  <nav aria-label="controles">
+  <ul class="pager">
+    <li><a [routerLink]="['../ejercicio']">Anterior</a></li>
+    <li><a [routerLink]="['../sueno']">Siguiente</a></li>
+  </ul>
+</nav>
+</form>

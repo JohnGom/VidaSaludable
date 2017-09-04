@@ -1,0 +1,21 @@
+<table class="table table-inverse">
+  <thead>
+    <tr>
+      <th>#Id</th>
+      <th>Nombre</th>
+      <th>Descripcion</th>
+      <th>Entidad</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let row of dataSource">
+      <th scope="row">
+        {{row.id}}
+        <button type="button" (click)="irJornada(row.id)"class="btn btn-link">Ir</button>
+      </th>
+      <td>{{row.name}}</td>
+      <td>{{row.description}}</td>
+      <td>{{row.entity}}</td>
+    </tr>
+  </tbody>
+</table>
