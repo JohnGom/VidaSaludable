@@ -1,20 +1,29 @@
+<h1>Jornadas Activas</h1>
+<div class="container">
 <table class="table table-inverse">
   <thead>
     <tr>
+      <th>Nombre</th>
       <th>Tipo</th>
       <th>Fecha</th>
       <th>Lugar</th>
       <th>Ciudad</th>
       <th>Departamento</th>
+      <th>Estado</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let row of dataSource">
+      <td>{{row.name}}</td>
       <td>{{row.tipo}}</td>
       <td>{{row.date}}</td>
       <td>{{row.place}}</td>
-      <td>{{row.department}}</td>
       <td>{{row.city}}</td>
+      <td>{{row.department}}</td>
+      <td>{{row.state}}</td>
+      <td><a class="btn btn-success btn-xs" (click)="send(row.id)" [routerLink]="['../jorActiva']">
+      <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Nuevo Participante</a></td>
     </tr>
   </tbody>
 </table>
+</div>

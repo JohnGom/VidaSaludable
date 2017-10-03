@@ -3,3 +3,8 @@ export class User {
   username: string;
   type: string;
 }
+
+export class Departamento {
+  departamentoId: number;
+  nombreDepartamento: string;
+}

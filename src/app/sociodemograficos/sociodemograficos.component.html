@@ -2,72 +2,61 @@
 <h3>Datos Sociodemográficos</h3>
 <form class="form-socio" class="col-sm-6">
   <div class="form-group">
+    <label for="insurer">Tipo de Identificacion</label>
+    <select class="form-control" [(ngModel)]="typeId" name="typeId">
+      <option *ngFor="let tipo of tiposid" [value]="tipo.value">{{tipo.value}}. {{tipo.name}}</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="id">Cedula</label>
+    <input type="text" #cedula (keyup.enter)="infoClient(cedula.value)" class="form-control" aria-describedby="helpBlock">
+  </div>
+  <div class="form-group">
+    <label for="name">Nombres</label>
+    <input type="text" id="" class="form-control" [(ngModel)]="firstname" name="firstname" aria-describedby="helpBlock">
+  </div>
+  <div class="form-group">
+    <label for="lastname">Apellidos</label>
+    <input type="text" id="" class="form-control" [(ngModel)]="lastname" name="lastname" aria-describedby="helpBlock">
+  </div>
+  <div class="form-group">
     <label for="gender">Género</label>
-    <select class="form-control">
-      <option>...seleccionar...</option>
-      <option>Femenino</option>
-      <option>Masculino</option>
+    <select class="form-control" [(ngModel)]="gender" placeholder="Genero" name="gender">
+      <option *ngFor="let genero of generos" [value]="genero.name">{{genero.name}}</option>
     </select>
   </div>
   <div class="form-group">
     <label for="civilstatus">Estado Civil</label>
-    <select class="form-control">
-      <option>...seleccionar...</option>
-      <option>Soltero</option>
-      <option>Unión Libre</option>
-      <option>Casado</option>
-      <option>Separado/divorciado</option>
-      <option>Viudo</option>
+    <select class="form-control" [(ngModel)]="civilStatus" name="civil">
+      <option *ngFor="let estado of estadosCiv" [value]="estado.name">{{estado.name}}</option>
     </select>
   </div>
   <div class="form-group">
     <label for="stratum">Estrato socioeconómico</label>
-    <input type="text" id="" class="form-control" aria-describedby="helpBlock">
+    <input type="text" id="" class="form-control" [(ngModel)]="stratus" name="stratus" aria-describedby="helpBlock">
   </div>
   <div class="form-group">
     <label for="insurer">Asegurador EPS</label>
-    <select class="form-control">
-      <option>...seleccionar...</option>
-      <option>No asegurado</option>
-      <option>Subsidiado</option>
-      <option>Contributivo</option>
-      <option>Regímenes especiales</option>
+    <select class="form-control" [(ngModel)]="eps" name="eps">
+      <option *ngFor="let aseg of tiposAseg" [value]="aseg.name">{{aseg.name}}</option>
     </select>
   </div>
   <div class="form-group">
     <label for="occupation">Ocupación</label>
-    <select class="form-control">
-      <option>...seleccionar...</option>
-      <option>Oficios de hogar</option>
-      <option>Comerciante</option>
-      <option>Empleado</option>
-      <option>Jubilado</option>
-      <option>Estudiante</option>
-      <option>Otra</option>
+    <select class="form-control" [(ngModel)]="occupation" name="occupation">
+      <option *ngFor="let ocupacion of ocupaciones" [value]="ocupacion.name">{{ocupacion.name}}</option>
     </select>
   </div>
   <div class="form-group">
     <label for="leveleducation">Nivel de Escolaridad</label>
-    <select class="form-control">
-      <option>...seleccionar...</option>
-      <option>Ninguna</option>
-      <option>Primaria</option>
-      <option>Bachiller</option>
-      <option>Técnica/ Tecnológica</option>
-      <option>Universitaria</option>
-      <option>Posgrado</option>
+    <select class="form-control" [(ngModel)]="education" name="education">
+      <option *ngFor="let nivel of nivelesEst" [value]="nivel.name">{{nivel.name}}</option>
     </select>
   </div>
   <div class="form-group">
     <label for="religion">Orientación Religiosa</label>
-    <select class="form-control">
-      <option>...seleccionar...</option>
-      <option>Ninguna</option>
-      <option>Adventista 7º día</option>
-      <option>Católico</option>
-      <option>Testigo de Jehová</option>
-      <option>Evangélica</option>
-      <option>Otro</option>
+    <select class="form-control" [(ngModel)]="religion" name="religion">
+      <option *ngFor="let relig of religiones" [value]="relig.name">{{relig.name}}</option>
     </select>
   </div>
   <nav aria-label="controles">

@@ -1,0 +1,16 @@
+.form {
+    padding: 100px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+}
+
+h2 {
+    color: #0277BD;
+    font-family: cursive;
+    text-align: center
+}
+
+.buttonMargin {
+    margin-top: 20px;
+}

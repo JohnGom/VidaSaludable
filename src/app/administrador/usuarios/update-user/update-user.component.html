@@ -1,0 +1,33 @@
+<form class="form">
+    <h2>Datos Usuario</h2>
+  <div>
+    <md-form-field class="example-full-width">
+        <input mdInput [(ngModel)]="id" name="id" placeholder="Cedula" >
+    </md-form-field>
+  </div>
+  <div>
+    <md-form-field class="example-full-width">
+        <input mdInput [(ngModel)]="name" name="name" placeholder="Nombre" >
+    </md-form-field>
+  </div>
+  <div>
+    <md-form-field class="example-full-width">
+        <input mdInput [(ngModel)]="username" name="username" placeholder="Nombre de usuario">
+    </md-form-field>
+  </div>
+  <div>
+    <md-form-field class="example-full-width">
+        <input mdInput [(ngModel)]="password" name="password" placeholder="Contraseña">
+    </md-form-field>
+  </div>
+  <div>
+  <md-select class="example-full-width" [(ngModel)]="type" placeholder="Rol" name="tipo">
+    <md-option *ngFor="let typ of types" [value]="typ.name">
+      {{ typ.name }}
+    </md-option>
+  </md-select>
+  </div>
+  <div class="buttonMargin">
+  <button class="btn btn-info" (click)="update()">Modificar Usuario</button>
+  </div>
+</form>

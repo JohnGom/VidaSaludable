@@ -1,6 +1,9 @@
-<div *ngIf="tipo">
+<div *ngIf="encuestador">
   <app-encuestador></app-encuestador>
 </div>
-<div *ngIf="!tipo">
+<div *ngIf="coordinador">
   <app-coordinador></app-coordinador>
+</div>
+<div *ngIf="administrador">
+  <app-administrador></app-administrador>
 </div>

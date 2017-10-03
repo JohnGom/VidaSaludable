@@ -1,3 +1,6 @@
+import { JornadaComponent } from './encuestador/jornada/jornada.component';
+import { InfoJornadaComponent } from './coordinador/info-jornada/info-jornada.component';
+import { InfoProgramaComponent } from './coordinador/info-programa/info-programa.component';
 import { AssignedLinkComponent } from './assigned-link/assigned-link.component';
 import { CoordinadorComponent } from './coordinador/coordinador.component';
 import { NgModule } from '@angular/core';
@@ -23,15 +26,19 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: '', redirectTo: '/salud', pathMatch: 'full' },
   { path: 'salud', component: AssignedLinkComponent, canActivate: [AuthGuard], children: [
-        { path: '', redirectTo: '/socio', pathMatch: 'full' },
-        { path: 'socio', component: SociodemograficosComponent },
-        { path: 'fisio', component: FisiologicasComponent },
-        { path: 'bio', component: BioquimicasComponent },
-        { path: 'control', component: ConductasComponent },
-        { path: 'ejercicio', component: EjercicioComponent },
-        { path: 'nutricion', component: NutricionalComponent },
-        { path: 'sueno', component: SuenoComponent },
-        { path: 'espiritual', component: EspiritualidadComponent },
+        { path: 'jorActiva', component: JornadaActivaComponent, children: [
+            { path: 'socio', component: SociodemograficosComponent },
+            { path: 'fisio', component: FisiologicasComponent },
+            { path: 'bio', component: BioquimicasComponent },
+            { path: 'control', component: ConductasComponent },
+            { path: 'ejercicio', component: EjercicioComponent },
+            { path: 'nutricion', component: NutricionalComponent },
+            { path: 'sueno', component: SuenoComponent },
+            { path: 'espiritual', component: EspiritualidadComponent },
+        ]},
+        { path: 'infoPro', component: InfoProgramaComponent },
+        { path: 'infoJor/:id', component: InfoJornadaComponent },
+        { path: 'jrna', component: JornadaComponent },
     ]},
   { path: '**', redirectTo: '' }
 ];

@@ -23,12 +23,11 @@ export class NewProgramComponent {
     program.description = this.description;
     program.entity = this.entity;
     this.programService.saveProgram(program).subscribe((result: any) => {
-       console.log(result);
-       /*if (result.created == true) {
-          this.dialogRef.close({"created": true});
+       if (result.text() == 'ok') {
+          this.dialogRef.close({"updated": true});
        } else {
-          this.dialogRef.close({"created": false});
-       }*/
+          this.dialogRef.close({"updated": false});
+       } 
     });
   }
 

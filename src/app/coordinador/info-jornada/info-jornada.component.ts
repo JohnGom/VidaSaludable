@@ -1,7 +1,8 @@
 import { JornadaService } from './../../servicios/jornadas/jornada.service';
 import { ServiceModalService } from './../../service-modal/service-modal.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Response } from '@angular/http';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-info-jornada',
@@ -9,17 +10,24 @@ import { Response } from '@angular/http';
   styleUrls: ['./info-jornada.component.css']
 })
 export class InfoJornadaComponent implements OnInit {
+   id: number;
 
   public jornadas = [];
   constructor(public jornadaservice: JornadaService,
-              public modalService: ServiceModalService) {}
+              public modalService: ServiceModalService,
+              private route: ActivatedRoute,) {}
 
   ngOnInit() {
+    this.route.params.subscribe(params => {
+      if(params['id']!=null){
+          this.id = params['id']; 
+      }
+    });
     this.getJornadas();
   }
 
   public getJornadas() {
-    this.jornadaservice.getallJornadas().subscribe((data: Response) => {
+    this.jornadaservice.getallJornadas(this.id).subscribe((data: Response) => {
       this.jornadas = data.json();
       console.log(this.jornadas);
     })
@@ -29,9 +37,8 @@ export class InfoJornadaComponent implements OnInit {
     this.jornadaservice.deleteJornadas(id).subscribe((result: any) => {
       console.log(result);
       if (result.text() == 'ok') {
-        alert("Programa Eliminado");
-      } else {
-        alert("El programa no se pudo Eliminar");
+        alert("Jornada Eliminada");
+        this.getJornadas();
       }
     })
   }
@@ -41,8 +48,7 @@ export class InfoJornadaComponent implements OnInit {
       console.log(data);
       if (data) {
         alert("Jornada Creada");
-      } else {
-        alert("El jornada no se pudo crear");
+        this.getJornadas();
       }
     });
   }
@@ -52,8 +58,17 @@ export class InfoJornadaComponent implements OnInit {
       console.log(data);
       if (data) {
         alert("Jornada Actualizada");
-      } else {
-        alert("La jornada no se pudo actualizar");
+        this.getJornadas();
+      }
+    });
+  }
+
+  public listEncargados(users: Object) {
+    this.modalService.listEncargado(users).subscribe((data: any) => {
+      console.log(data);
+      if (data) {
+        alert("Encargados seleccionados");
+        this.getJornadas();
       }
     });
   }

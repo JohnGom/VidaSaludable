@@ -1,3 +1,6 @@
+import { ListEncargadosComponent } from './../coordinador/info-jornada/list-encargados/list-encargados.component';
+import { UpdateUserComponent } from './../administrador/usuarios/update-user/update-user.component';
+import { NewUserComponent } from './../administrador/usuarios/new-user/new-user.component';
 import { UpdateJornadaComponent } from './../coordinador/info-jornada/update-jornada/update-jornada.component';
 import { NewJornadaComponent } from './../coordinador/info-jornada/new-jornada/new-jornada.component';
 import { NewProgramComponent } from './../coordinador/info-programa/new-program/new-program.component';
@@ -20,6 +23,11 @@ export class ServiceModalService {
     let dialogRef = this.dialog.open(NewJornadaComponent);
     return dialogRef.afterClosed();
   }
+  
+  createUser(): Observable<Object> {
+    let dialogRef = this.dialog.open(NewUserComponent);
+    return dialogRef.afterClosed();
+  }
 
   updateProgram(program: Object): Observable<Object> {
     let dialogRef = this.dialog.open(UpdateProgramComponent, {
@@ -28,12 +36,25 @@ export class ServiceModalService {
     return dialogRef.afterClosed();
   }
 
-  updateJornada(program: Object): Observable<Object> {
+  updateJornada(jornada: Object): Observable<Object> {
     let dialogRef = this.dialog.open(UpdateJornadaComponent, {
-      data: program
+      data: jornada
     });
     return dialogRef.afterClosed();
   }
 
+  updateUser(user: Object): Observable<Object> {
+    let dialogRef = this.dialog.open(UpdateUserComponent, {
+      data: user
+    });
+    return dialogRef.afterClosed();
+  }
+
+  listEncargado(user: Object): Observable<Object> {
+    let dialogRef = this.dialog.open(ListEncargadosComponent, {
+      data: user
+    });
+    return dialogRef.afterClosed();
+  }
 
 }

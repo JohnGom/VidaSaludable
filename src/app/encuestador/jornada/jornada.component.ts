@@ -1,3 +1,5 @@
+import { ShareDataService } from './../../servicios/sharedata/share-data.service';
+import { User } from './../../data/user';
 import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { JornadaService } from '../../servicios/jornadas/jornada.service';
 
@@ -7,15 +9,17 @@ import { JornadaService } from '../../servicios/jornadas/jornada.service';
   styleUrls: ['./jornada.component.css']
 })
 export class JornadaComponent implements OnInit {
-  @Input('idprogram') id: number;
+  user: User = JSON.parse(localStorage.getItem('currentUser')) || [];
   dataSource = [];
 
-  constructor(private service: JornadaService) {
+  constructor(private service: JornadaService,
+              private shareservice: ShareDataService) {
     
-    if(this.id !== undefined) {
-    this.service.getJornadas(this.id).subscribe(
+    if(this.user.token !== undefined) {
+    this.service.getJornadas(this.user.token).subscribe(
       data => {
       this.dataSource = data.json();
+      console.log(this.dataSource);
     })
     }
   }
@@ -31,6 +35,10 @@ export class JornadaComponent implements OnInit {
 
   ngOnInit() {
     
+  }
+
+  send(id: string) {
+    localStorage.setItem('idjornada', id);
   }
 
 }

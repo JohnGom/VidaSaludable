@@ -1,5 +1,5 @@
 
-<h3>Dimensión Nutricional</h3>
+<h3>Dimensión Espiritualidad</h3>
 <form class="form-socio" class="col-sm-6">
   <div class="form-group">
     <label for="insurer">Teniendo en cuenta que la espiritualidad es la tendencia a reconocer a Dios, o a un ser superior, y la manifestación práctica en mi relacionamiento conmigo mismo, con los demás y con el cuidado del medio ambiente, usted se califica como</label>
@@ -11,10 +11,23 @@
       <option>No Espiritual</option>
     </select>
   </div>
-  <button type="button" class="btn btn-primary" (click)=interpretationConfirm()>Interretacion</button>
   <nav aria-label="controles">
   <ul class="pager">
     <li><a [routerLink]="['../sueno']">Anterior</a></li>
   </ul>
 </nav>
 </form>
+<md-card class="example-card col-sm-2">
+  <md-card-header>
+    <md-card-title>
+      <h4>Interpretaciones</h4>
+    </md-card-title>
+    <md-card-subtitle>Dimensión Espiritualidad</md-card-subtitle>
+  </md-card-header>
+  <md-card-content>
+    
+  </md-card-content>
+  <md-card-actions class="text-center">
+    <button type="button" class="btn btn-primary" (click)=saveData()>Guardar</button>
+  </md-card-actions>
+</md-card>

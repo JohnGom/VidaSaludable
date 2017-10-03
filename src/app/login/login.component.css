@@ -1,11 +1,13 @@
-.container { 
-  background: white no-repeat center fixed; 
+.contain { 
+  background: url('../../assets/fondo.jpg') no-repeat center fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+  overflow: hidden;
   width: 100%;
   height: 100%;
+  position: absolute;
 }
 
 .panel-default {

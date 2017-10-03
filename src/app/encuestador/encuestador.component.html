@@ -1,11 +1,83 @@
-<md-tab-group [selectedIndex]="indexSelected">
-    <md-tab label="Programa">
-        <app-programa></app-programa>  
-    </md-tab>
-    <md-tab label="Jornadas">
-        <app-jornada [idprogram]="idprogram"></app-jornada>  
-    </md-tab>
-    <md-tab label="Jornada Activa">
-        <app-jornadaActiva></app-jornadaActiva>
-    </md-tab>
-</md-tab-group>
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <a class="navbar-brand" [routerLink]="['']">
+        <img alt="Brand" class="logo" src="http://www.uniminuto.edu/documents/991974/8487842/Logo-UNAC-01.png/f52b2ad2-ed27-46a8-81df-f155103b11fb?version=1.0&t=1492693689811"/>
+      </a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav contentBtn">
+        <li class="contentBtn">
+          <a style="color:#FFFFFF" [routerLinkActive]="['active']" [routerLink]="['jrna']">Jornadas<span class="sr-only contentBtn">(current)</span></a>
+        </li>
+      </ul>
+      <form class="navbar-form navbar-left">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search">
+        </div>
+        <button type="submit" class="btn btn-default">Buscar</button>
+      </form>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a style="color:#FFFFFF" (click)="SignOff()" [routerLink]="['../login']">Cerrar Sesion</a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+<!--<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Salud</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <li><a [routerLink]="['infoPro']">Programas</a></li>
+      <form class="navbar-form navbar-left">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search">
+        </div>
+        <button type="submit" class="btn btn-default">Buscar</button>
+      </form>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a class="btn btn-default"(click)="SignOff()">Cerrar Sesion</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>-->
+ <div *ngIf="router.routerState.snapshot.url==='/salud'" class="carousel">
+  <ul class="slides">
+    <li>
+      <h2>Expo Salud</h2>
+      <img src="https://blogucn.files.wordpress.com/2012/09/img_1979.jpg" alt="" />
+    </li>
+    <li>
+      <h2>Generacion saludable</h2>
+      <img src="https://blogucn.files.wordpress.com/2013/08/img_0439.jpg" alt="" />
+    </li>
+    <li>
+      <h2>Estilos de vida</h2>
+      <img src="https://blogucn.files.wordpress.com/2013/08/img_0434.jpg?w=1000&h=" alt="" />
+    </li>
+    <li>
+      <h2>Importancia de la salud</h2>
+      <img src="https://blogucn.files.wordpress.com/2012/09/img_1884.jpg" alt="" />
+    </li>
+    <li>
+      <h2>Vidas transformadas</h2>
+      <img src="https://blogucn.files.wordpress.com/2013/09/neco18.jpg" alt="" />
+    </li>
+  </ul>
+</div>
+
+
+
+<router-outlet></router-outlet>

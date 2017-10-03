@@ -3,7 +3,7 @@
 <form class="form-socio" class="col-sm-6">
   <div class="form-group">
     <label for="gender">¿Usted fuma?</label>
-    <select class="form-control">
+    <select class="form-control" [(ngModel)]="smoke" name="smoke">
       <option>...seleccionar...</option>
       <option>Si</option>
       <option>No</option>
@@ -11,7 +11,7 @@
   </div>
   <div class="form-group">
     <label for="civilstatus">¿Su hábito de fumar es muy importante para usted?</label>
-    <select class="form-control">
+    <select class="form-control" [(ngModel)]="smoke1" name="smoke1">
       <option>...seleccionar...</option>
       <option>Siempre</option>
       <option>A menudo</option>
@@ -22,7 +22,7 @@
   </div>
   <div class="form-group">
     <label for="civilstatus">¿Se recompensa a si mismo/a con un cigarrillo tras cumplir una tarea?</label>
-    <select class="form-control">
+    <select class="form-control" [(ngModel)]="smoke2" name="smoke2">
       <option>...seleccionar...</option>
       <option>Siempre</option>
       <option>A menudo</option>
@@ -33,7 +33,7 @@
   </div>
   <div class="form-group">
     <label for="occupation">¿Se angustia cuando se queda sin cigarrillos o no consigue encontrar el paquete de tabaco?</label>
-    <select class="form-control">
+    <select class="form-control" [(ngModel)]="smoke3" name="smoke3">
       <option>...seleccionar...</option>
       <option>Siempre</option>
       <option>A menudo</option>
@@ -44,7 +44,7 @@
   </div>
   <div class="form-group">
     <label for="leveleducation">¿Cuándo no tiene tabaco, le resulta difícil concentrarse o realizar cualquier tarea?</label>
-    <select class="form-control">
+    <select class="form-control" [(ngModel)]="smoke4" name="smoke4">
       <option>...seleccionar...</option>
       <option>Siempre</option>
       <option>A menudo</option>
@@ -55,7 +55,7 @@
   </div>
  <div class="form-group">
     <label for="gender">¿Usted toma bebidas alcohólicas?</label>
-    <select class="form-control">
+    <select class="form-control" [(ngModel)]="drinkBeer" name="drinkBeer">
       <option>...seleccionar...</option>
       <option>Si</option>
       <option>No</option>
@@ -63,7 +63,7 @@
   </div>
   <div class="form-group">
     <label for="gender">¿En el último año ha sentido alguna vez la necesidad de disminuir la cantidad de alcohol que toma?</label>
-    <select class="form-control">
+    <select class="form-control" [(ngModel)]="drinkBeer1" name="drinkBeer1">
       <option>...seleccionar...</option>
       <option>Si</option>
       <option>No</option>
@@ -71,7 +71,7 @@
   </div>
   <div class="form-group">
     <label for="gender">¿En el último año ha sentido usted molesto por que le critican su manera de beber?</label>
-    <select class="form-control">
+    <select class="form-control" [(ngModel)]="drinkBeer2" name="drinkBeer2">
       <option>...seleccionar...</option>
       <option>Si</option>
       <option>No</option>
@@ -79,7 +79,7 @@
   </div>
   <div class="form-group">
     <label for="gender">¿En el último año ha sentido alguna vez mal o culpable por su manera de beber?</label>
-    <select class="form-control">
+    <select class="form-control" [(ngModel)]="drinkBeer3" name="drinkBeer3">
       <option>...seleccionar...</option>
       <option>Si</option>
       <option>No</option>
@@ -87,7 +87,7 @@
   </div>
    <div class="form-group">
     <label for="gender">¿En el último año ha tomado alguna vez un trago a primera hora en la mañana para calmar los nervios o quitar el guayabo?</label>
-    <select class="form-control">
+    <select class="form-control" [(ngModel)]="drinkBeer4" name="drinkBeer4">
       <option>...seleccionar...</option>
       <option>Si</option>
       <option>No</option>
@@ -95,7 +95,7 @@
   </div>
   <div class="form-group">
     <label for="leveleducation">Me siento capaz de manejar el estrés y ansiedad en vida</label>
-    <select class="form-control">
+    <select class="form-control" [(ngModel)]="stress" name="stress">
       <option>...seleccionar...</option>
       <option>Siempre</option>
       <option>Con alguna frecuencia</option>
@@ -103,7 +103,6 @@
       <option>Nunca</option>
     </select>
   </div>
-  <button type="button" class="btn btn-primary" (click)=interpretationConfirm()>Interretacion</button>
   <nav aria-label="controles">
   <ul class="pager">
     <li><a [routerLink]="['../bio']">Anterior</a></li>
@@ -111,3 +110,17 @@
   </ul>
 </nav>
 </form>
+<md-card class="example-card col-sm-2">
+  <md-card-header>
+    <md-card-title>
+      <h4>Interpretaciones</h4>
+    </md-card-title>
+    <md-card-subtitle>Conductas de Riesgo</md-card-subtitle>
+  </md-card-header>
+  <md-card-content>
+    
+  </md-card-content>
+  <md-card-actions class="text-center">
+    <button type="button" class="btn btn-primary" (click)=saveData()>Guardar</button>
+  </md-card-actions>
+</md-card>

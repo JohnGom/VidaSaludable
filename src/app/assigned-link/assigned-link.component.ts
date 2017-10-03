@@ -8,12 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AssignedLinkComponent implements OnInit {
   user: User = JSON.parse(localStorage.getItem('currentUser')) || [];
-  tipo: boolean
+  encuestador: string;
+  coordinador: string;
+  administrador: string;
   constructor() { 
-    if(this.user.type === "encuestador"){
-      this.tipo = true;
-    } else {
-      this.tipo = false;
+    if (this.user.type === "encuestador") {
+      this.encuestador = this.user.type;
+    } else if (this.user.type === "coordinador") {
+      this.coordinador = this.user.type;
+    } else if (this.user.type === "administrador") {
+      this.administrador = this.user.type;
     }
   }
 

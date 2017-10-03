@@ -1,4 +1,6 @@
+import { AuthserviceService } from './../servicios/authservice.service';
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-coordinador',
@@ -7,9 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CoordinadorComponent implements OnInit {
 
-  constructor() { }
+  indexSelected: number;
+  idprogram: number;
+  constructor(private service: AuthserviceService,
+              private router: Router) { }
 
   ngOnInit() {
   }
 
+  SignOff() {
+    this.service.logout();
+    this.router.navigate(['/login']);
+  }
+
+  selectTab(index: number, id: number): void {
+  this.indexSelected = index;
+  this.idprogram = id;
+}
 }

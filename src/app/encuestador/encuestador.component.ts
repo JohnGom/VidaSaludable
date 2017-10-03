@@ -1,4 +1,6 @@
+import { AuthserviceService } from './../servicios/authservice.service';
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-encuestador',
@@ -8,13 +10,39 @@ import { Component, OnInit } from '@angular/core';
 export class EncuestadorComponent implements OnInit {
   indexSelected: number;
   idprogram: number;
-  constructor() { }
+  validar: boolean;
+  slideIndex;
+  slideWrap;
+  slideInterval;
+  slidePause;
+  slideNoTransition;
+  extraSlides;
+  constructor(private service: AuthserviceService,
+              private router: Router) { 
+    if(this.router.routerState.snapshot.url='/salud'){
+      this.validar === true;
+    } else {
+      this.validar === false;
+    }
+    this.slideIndex = 1;
+    this.slideWrap = true;
+    this.slideInterval = 5000;
+    this.slidePause = "hover";
+    this.slideNoTransition = false;
+    this.extraSlides = false;
+  }
 
   ngOnInit() {
+    
+  }
+
+  SignOff() {
+    this.service.logout();
   }
 
   selectTab(index: number, id: number): void {
   this.indexSelected = index;
   this.idprogram = id;
 }
+
 }

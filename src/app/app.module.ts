@@ -1,3 +1,8 @@
+import { ShareDataService } from './servicios/sharedata/share-data.service';
+import { InterpretationService } from './servicios/interpretations/interpretation.service';
+import { ListEncargadosComponent } from './coordinador/info-jornada/list-encargados/list-encargados.component';
+import { BenefitedService } from './servicios/benefited/benefited.service';
+import { UserService } from './servicios/users/user.service';
 import { ServiceModalService } from './service-modal/service-modal.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -27,7 +32,10 @@ import { MdDatepickerModule,
   MdTabsModule, 
   MdTableModule,
   MdDialogModule, 
-  MdInputModule, 
+  MdInputModule,
+  MdSelectModule,
+  MdAutocompleteModule,
+  MdListModule,
   MdButtonToggleModule } from '@angular/material';
 
 import { AuthserviceService } from './servicios/authservice.service';
@@ -45,7 +53,10 @@ import { NewProgramComponent } from './coordinador/info-programa/new-program/new
 import { UpdateProgramComponent } from './coordinador/info-programa/update-program/update-program.component';
 import { NewJornadaComponent } from './coordinador/info-jornada/new-jornada/new-jornada.component';
 import { UpdateJornadaComponent } from './coordinador/info-jornada/update-jornada/update-jornada.component';
-ServiceModalService
+import { AdministradorComponent } from './administrador/administrador.component';
+import { UsuariosComponent } from './administrador/usuarios/usuarios.component';
+import { NewUserComponent } from './administrador/usuarios/new-user/new-user.component';
+import { UpdateUserComponent } from './administrador/usuarios/update-user/update-user.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +81,12 @@ ServiceModalService
     NewProgramComponent,
     UpdateProgramComponent,
     NewJornadaComponent,
-    UpdateJornadaComponent
+    UpdateJornadaComponent,
+    AdministradorComponent,
+    UsuariosComponent,
+    NewUserComponent,
+    UpdateUserComponent,
+    ListEncargadosComponent
   ],
   imports: [
     BrowserModule,
@@ -89,7 +105,10 @@ ServiceModalService
     CdkTableModule,
     MdCardModule, 
     MdDialogModule, 
-    MdInputModule, 
+    MdInputModule,
+    MdSelectModule,
+    MdListModule,
+    MdAutocompleteModule,
     MdButtonToggleModule
   ],
   providers: [
@@ -98,16 +117,26 @@ ServiceModalService
     JornadaService,
     AuthserviceService,
     ServiceModalService,
+    InterpretationService,
+    ShareDataService,
     NewProgramComponent,
     UpdateProgramComponent,
     NewJornadaComponent,
-    UpdateJornadaComponent
+    UpdateJornadaComponent,
+    NewUserComponent,
+    UpdateUserComponent,
+    UserService,
+    BenefitedService,
+    ListEncargadosComponent 
   ],
   entryComponents: [ 
     NewProgramComponent,
     UpdateProgramComponent,
     NewJornadaComponent,
-    UpdateJornadaComponent
+    UpdateJornadaComponent,
+    NewUserComponent,
+    UpdateUserComponent,
+    ListEncargadosComponent
     ],
   bootstrap: [AppComponent]
 })

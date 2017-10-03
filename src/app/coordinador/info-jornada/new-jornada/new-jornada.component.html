@@ -1,33 +1,56 @@
 <form class="form">
-    <h2>Crear Programa</h2>
+    <h2>Jornadá</h2>
   <div>
     <md-form-field class="example-full-width">
         <input mdInput [(ngModel)]="name" name="name" placeholder="Nombre" >
     </md-form-field>
     <md-form-field class="example-full-width">
-        <input mdInput [(ngModel)]="encargado" name="encargado" placeholder="Encargado">
-    </md-form-field>
-  </div>
-  <div>
-    <md-form-field class="example-full-width">
-        <input mdInput [(ngModel)]="city" name="city" placeholder="Ciudad">
-    </md-form-field>
-    <md-form-field class="example-full-width">
-        <input mdInput [(ngModel)]="department" name="department" placeholder="Departamento">
-    </md-form-field>
-  </div>
-  <div>
-    <md-form-field class="example-full-width">
-        <input mdInput type="date" [(ngModel)]="date" name="colaborationEntity" placeholder="Fecha">
-    </md-form-field>
-    <md-form-field class="example-full-width">
-        <input mdInput [(ngModel)]="tipo" name="tipo" placeholder="tipo">
-    </md-form-field>
-  </div>
-  <div>
-    <md-form-field class="example-full-width">
         <input mdInput [(ngModel)]="place" name="place" placeholder="Lugar">
     </md-form-field>
   </div>
-  <button md-raised-button color="primary" (click)="save()">Guardar</button>
+  <div>
+    <md-form-field class="example-full-width">
+    <input #selectDep type="text" placeholder="Departamento" 
+    [(ngModel)]="department" 
+    aria-label="Number" 
+    mdInput [formControl]="departmentControl" 
+    [mdAutocomplete]="auto">
+    <md-autocomplete #auto="mdAutocomplete">
+      <md-option 
+      *ngFor="let depart of filteredDepartment | async" 
+      [value]="depart.nombreDepartamento"
+      (onSelectionChange)="infoDep($event, depart.departamentoId)">
+        {{ depart.nombreDepartamento }}
+      </md-option>
+    </md-autocomplete>
+  </md-form-field>
+  <md-form-field class="example-full-width">
+    <input type="text" placeholder="Ciudad" [(ngModel)]="city" aria-label="Number" mdInput [formControl]="cityControl" [mdAutocomplete]="autoC">
+    <md-autocomplete #autoC="mdAutocomplete">
+      <md-option *ngFor="let city of filteredCity | async" [value]="city.nombreCiudad">
+        {{ city.nombreCiudad }}
+      </md-option>
+    </md-autocomplete>
+  </md-form-field>
+  </div>
+  <div>
+  <md-select class="example-full-width" [(ngModel)]="tipo" placeholder="Tipo" name="tipo">
+    <md-option *ngFor="let typ of types" [value]="typ.name">
+      {{ typ.name }}
+    </md-option>
+  </md-select>
+  <md-select class="example-full-width" [(ngModel)]="state" placeholder="Estado" name="estado">
+    <md-option *ngFor="let sta of states" [value]="sta.name">
+      {{ sta.name }}
+    </md-option>
+  </md-select>
+  </div>
+  <div class="buttonMargin">
+    <md-form-field class="example-full-width">
+        <input mdInput type="date" [(ngModel)]="date" name="colaborationEntity" placeholder="Fecha">
+    </md-form-field>
+  </div>
+  <div class="buttonMargin">
+    <button type="button" class="btn btn-success" (click)="save()">Crear Jornada</button>
+  </div>
 </form>
