@@ -1,3 +1,4 @@
+import { mainReducer, peopleReducer } from './reducer/reducers';
 import { ShareDataService } from './servicios/sharedata/share-data.service';
 import { InterpretationService } from './servicios/interpretations/interpretation.service';
 import { ListEncargadosComponent } from './coordinador/info-jornada/list-encargados/list-encargados.component';
@@ -13,16 +14,16 @@ import { DatePickerModule } from 'ng2-datepicker';
 import { CdkTableModule } from '@angular/cdk/table';
 
 import { AppComponent } from './app.component';
-import { ConductasComponent } from './conductas/conductas.component';
-import { SociodemograficosComponent } from './sociodemograficos/sociodemograficos.component';
-import { EjercicioComponent } from './ejercicio/ejercicio.component';
-import { EspiritualidadComponent } from './espiritualidad/espiritualidad.component';
-import { NutricionalComponent } from './nutricional/nutricional.component';
-import { SuenoComponent } from './sueno/sueno.component';
+import { ConductasComponent } from './intervencion/conductas/conductas.component';
+import { SociodemograficosComponent } from './intervencion/sociodemograficos/sociodemograficos.component';
+import { EjercicioComponent } from './intervencion/ejercicio/ejercicio.component';
+import { EspiritualidadComponent } from './intervencion/espiritualidad/espiritualidad.component';
+import { NutricionalComponent } from './intervencion/nutricional/nutricional.component';
+import { SuenoComponent } from './intervencion/sueno/sueno.component';
 import { JornadaActivaComponent } from './jornada/jornada.component';
 import { LoginComponent } from './login/login.component';
-import { BioquimicasComponent } from './bioquimicas/bioquimicas.component';
-import { FisiologicasComponent } from './fisiologicas/fisiologicas.component';
+import { BioquimicasComponent } from './intervencion/bioquimicas/bioquimicas.component';
+import { FisiologicasComponent } from './intervencion/fisiologicas/fisiologicas.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from "@angular/flex-layout";
@@ -37,6 +38,7 @@ import { MdDatepickerModule,
   MdAutocompleteModule,
   MdListModule,
   MdButtonToggleModule } from '@angular/material';
+import { StoreModule } from '@ngrx/store';
 
 import { AuthserviceService } from './servicios/authservice.service';
 import { ProgramService } from './servicios/programas/program.service';
@@ -57,6 +59,8 @@ import { AdministradorComponent } from './administrador/administrador.component'
 import { UsuariosComponent } from './administrador/usuarios/usuarios.component';
 import { NewUserComponent } from './administrador/usuarios/new-user/new-user.component';
 import { UpdateUserComponent } from './administrador/usuarios/update-user/update-user.component';
+import { PresentacionFinalComponent } from './intervencion/presentacion-final/presentacion-final.component';
+import { ReportesComponent } from './coordinador/reportes/reportes.component';
 
 @NgModule({
   declarations: [
@@ -86,7 +90,9 @@ import { UpdateUserComponent } from './administrador/usuarios/update-user/update
     UsuariosComponent,
     NewUserComponent,
     UpdateUserComponent,
-    ListEncargadosComponent
+    ListEncargadosComponent,
+    PresentacionFinalComponent,
+    ReportesComponent
   ],
   imports: [
     BrowserModule,
@@ -109,7 +115,8 @@ import { UpdateUserComponent } from './administrador/usuarios/update-user/update
     MdSelectModule,
     MdListModule,
     MdAutocompleteModule,
-    MdButtonToggleModule
+    MdButtonToggleModule,
+    StoreModule.forRoot(mainReducer)
   ],
   providers: [
     AuthGuard,

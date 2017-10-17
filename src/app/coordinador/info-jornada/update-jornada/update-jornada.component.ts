@@ -27,6 +27,7 @@ export class UpdateJornadaComponent implements OnInit {
   public tipo: string;
   public place: string;
   public state: string;
+  public bioquimica: boolean;
   public departments: any;
   public cities: any;
 
@@ -87,8 +88,6 @@ export class UpdateJornadaComponent implements OnInit {
 
   filljornada() {
       this.id = this.data.id;
-      console.log(this.data.id);
-      
       this.name = this.data.name;
       this.department = this.data.department;
       this.infoEncargado = this.data.infoEncargado;
@@ -96,7 +95,9 @@ export class UpdateJornadaComponent implements OnInit {
       this.date = this.data.date;
       this.tipo = this.data.tipo;
       this.place = this.data.place;
+      this.bioquimica = this.data.bioquimica;
       this.state = this.data.state;
+      console.log(this.state);
   }
 
   update() {
@@ -110,6 +111,7 @@ export class UpdateJornadaComponent implements OnInit {
     jornada.tipo = this.tipo;
     jornada.place = this.place;
     jornada.state = this.state;
+    jornada.bioquimica = this.bioquimica;
     this.jornadaService.updateJornadas(jornada).subscribe((result: any) => {
       if (result.updated == true) {
           this.dialogRef.close({"updated": true});

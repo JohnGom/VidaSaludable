@@ -1,0 +1,46 @@
+<div class="col-sm-5">
+<h3>Dimensión Ejercicio</h3>
+<p class="parra">Actividad física regular, significa que usted realiza actividad física al menos 30 minutos al día y por lo menos 5 días a la semana. Por ejemplo, usted puede tomar un paseo de 30 minutos o 3 caminatas de 10 minutos para un total de 30 minutos por día.</p>
+<form class="form-socio" name="form" (ngSubmit)="f.form.valid && saveData()" #f="ngForm" novalidate>
+  <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !ejer1.valid }">
+    <label for="insurer">Con esta aclaración, ¿actualmente usted hace actividad física con regularidad?</label>
+    <select class="form-control" #ejer1="ngModel" [(ngModel)]="exercise" name="exercise" required>
+      <option>...seleccionar...</option>
+      <option>Si</option>
+      <option>No</option>
+    </select>
+    <div *ngIf="f.submitted && !ejer1.valid" class="help-block">Este campo es requerido</div>
+  </div>
+  <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !ejer2.valid }">
+    <label for="insurer">¿Ha realizado actividad física con regularidad en  los últimos 6 meses?</label>
+    <select class="form-control" #ejer2="ngModel" (change)="onChangeInfo($event.target.value)"[(ngModel)]="exercise1" name="exercise1" required>
+      <option>...seleccionar...</option>
+      <option>Si</option>
+      <option>No</option>
+    </select>
+    <div *ngIf="f.submitted && !ejer2.valid" class="help-block">Este campo es requerido</div>
+  </div>
+  <nav aria-label="controles">
+  <ul class="pager">
+    <li><button class="btn btn-default">Enviar</button></li>
+  </ul>
+</nav>
+</form>
+</div>
+<div class="col-sm-4 card">
+  <img src="../../../assets/estaciones/Spanish-Multicultural-002.jpg" class="img-responsive img-thumbnail" alt="Responsive image">
+<md-card class="example-card">
+  <md-card-header>
+    <md-card-title>
+      <h4>Interpretaciones</h4>
+    </md-card-title>
+    <md-card-subtitle>Dimensión Ejercicio</md-card-subtitle>
+  </md-card-header>
+  <md-card-content>
+    <p>
+     <strong>Interpretación Ejercicio: </strong> {{interExercise}}
+    </p>
+    <p>R/ {{recoExercise}}</p>
+  </md-card-content>
+</md-card>
+</div>

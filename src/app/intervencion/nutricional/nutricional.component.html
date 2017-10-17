@@ -1,0 +1,109 @@
+<div class="col-sm-5">
+<h3>Dimensión Nutricional</h3>
+<form class="form-socio" name="form" (ngSubmit)="f.form.valid && saveData()" #f="ngForm" novalidate>
+  <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !fruit.valid }">
+    <label >¿Cuántas porciones de frutas come en promedio por día? Una porción es el equivalente al puño de su mano.</label>
+    <input type="text" #fruit="ngModel" [(ngModel)]="fruits" (blur)="infoFruit(fruit.value)" name="fruits" class="form-control" aria-describedby="helpBlock" required>
+    <div *ngIf="f.submitted && !fruit.valid" class="help-block">Este campo es requerido</div>  
+  </div>
+  <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !vegetable.valid }">
+    <label >¿Cuántas porciones de verduras come en promedio por día? Una porción es el equivalente al puño de su mano.</label>
+    <input type="text" #vegetable="ngModel" [(ngModel)]="vegetables" (blur)="infoVegetables(vegetable.value)" name="vegetables" class="form-control" aria-describedby="helpBlock" required>
+    <div *ngIf="f.submitted && !vegetable.valid" class="help-block">Este campo es requerido</div>  
+  </div>
+  <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !grasa.valid }">
+    <label for="insurer">¿Usted controla el consumo de grasas en sus comidas diarias?</label>
+    <select class="form-control" #grasa="ngModel" (change)="onChangeInfoGrease($event.target.value)" [(ngModel)]="grease" name="grease" required>
+      <option>...seleccionar...</option>
+      <option>Siempre</option>
+      <option>Con alguna frecuencia</option>
+      <option>Con Poca frecuencia </option>
+      <option>Nunca</option>
+    </select>
+    <div *ngIf="f.submitted && !grasa.valid" class="help-block">Este campo es requerido</div>
+  </div>
+  <div class="form-group"  [ngClass]="{ 'has-error': f.submitted && !sales.valid }">
+    <label for="insurer">¿Usted controla el consumo de sal en sus comidas diarias?</label>
+    <select class="form-control" #sales="ngModel" (change)="onChangeInfoSal($event.target.value)" [(ngModel)]="sal" name="sal" required>
+      <option>...seleccionar...</option>
+      <option>Siempre</option>
+      <option>Con alguna frecuencia</option>
+      <option>Con Poca frecuencia </option>
+      <option>Nunca</option>
+    </select>
+    <div *ngIf="f.submitted && !sales.valid" class="help-block">Este campo es requerido</div>
+  </div>
+  <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !azucar.valid }">
+    <label for="insurer">¿Usted controla el consumo de azúcar en sus comidas diarias?</label>
+    <select class="form-control" #azucar="ngModel" (change)="onChangeInfoSugar($event.target.value)" [(ngModel)]="sugar" name="sugar" required>
+      <option>...seleccionar...</option>
+      <option>Siempre</option>
+      <option>Con alguna frecuencia</option>
+      <option>Con Poca frecuencia </option>
+      <option>Nunca</option>
+    </select>
+    <div *ngIf="f.submitted && !azucar.valid" class="help-block">Este campo es requerido</div>
+  </div>
+  <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !comida.valid }">
+    <label for="insurer">¿Usted consume regularmente tres comidas al día?</label>
+    <select class="form-control" #comida="ngModel" (change)="onChangeInfoFoods($event.target.value)" [(ngModel)]="foods" name="foods" required>
+      <option>...seleccionar...</option>
+      <option>Siempre</option>
+      <option>Con alguna frecuencia</option>
+      <option>Con Poca frecuencia </option>
+      <option>Nunca</option>
+    </select>
+    <div *ngIf="f.submitted && !comida.valid" class="help-block">Este campo es requerido</div>
+  </div>
+  <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !agua.valid }">
+    <label for="insurer">¿Usted consume regularmente 5 a 8 vasos de agua al día?</label>
+    <select class="form-control" #agua="ngModel" (change)="onChangeInfoWater($event.target.value)" [(ngModel)]="water" name="water" required>
+      <option>...seleccionar...</option>
+      <option>Siempre</option>
+      <option>Con alguna frecuencia</option>
+      <option>Con Poca frecuencia </option>
+      <option>Nunca</option>
+    </select>
+    <div *ngIf="f.submitted && !agua.valid" class="help-block">Este campo es requerido</div>
+  </div>
+  <nav aria-label="controles">
+  <ul class="pager">
+    <li><button class="btn btn-default">Enviar</button></li>
+  </ul>
+</nav>
+</form>
+</div>
+<div class="col-sm-4 card">
+  <img src="../../../assets/estaciones/Spanish-Multicultural-001.jpg" class="img-responsive img-thumbnail" alt="Responsive image">
+<md-card class="example-card">
+  <md-card-header>
+    <md-card-title>
+      <h4>Interpretaciones</h4>
+    </md-card-title>
+    <md-card-subtitle>Dimensión Nutricional</md-card-subtitle>
+  </md-card-header>
+  <md-card-content>
+    <p>
+     <strong>Frutas: </strong> {{interFruits}}
+    </p>
+    <p>
+     <strong>Verduras: </strong> {{interVegetable}}
+    </p>
+    <p>
+     <strong>Grasas: </strong> {{interGrease}}
+    </p>
+    <p>
+     <strong>Sal: </strong> {{interSal}}
+    </p>
+    <p>
+     <strong>Azúcar: </strong> {{interSugar}}
+    </p>
+    <p>
+     <strong>Comidas diarias: </strong> {{interFood}}
+    </p>
+    <p>
+     <strong>Agua: </strong> {{interWater}}
+    </p>
+  </md-card-content>
+</md-card>
+</div>

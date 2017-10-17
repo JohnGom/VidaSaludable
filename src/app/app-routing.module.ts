@@ -1,3 +1,5 @@
+import { ReportesComponent } from './coordinador/reportes/reportes.component';
+import { PresentacionFinalComponent } from './intervencion/presentacion-final/presentacion-final.component';
 import { JornadaComponent } from './encuestador/jornada/jornada.component';
 import { InfoJornadaComponent } from './coordinador/info-jornada/info-jornada.component';
 import { InfoProgramaComponent } from './coordinador/info-programa/info-programa.component';
@@ -7,18 +9,17 @@ import { NgModule } from '@angular/core';
 //Directivas
 import { RouterModule, Routes } from "@angular/router";
 
-import { ConductasComponent } from './conductas/conductas.component';
-import { SociodemograficosComponent } from './sociodemograficos/sociodemograficos.component';
-import { EjercicioComponent } from './ejercicio/ejercicio.component';
-import { EspiritualidadComponent } from './espiritualidad/espiritualidad.component';
-import { NutricionalComponent } from './nutricional/nutricional.component';
-import { SuenoComponent } from './sueno/sueno.component';
+import { ConductasComponent } from './intervencion/conductas/conductas.component';
+import { SociodemograficosComponent } from './intervencion/sociodemograficos/sociodemograficos.component';
+import { EjercicioComponent } from './intervencion/ejercicio/ejercicio.component';
+import { EspiritualidadComponent } from './intervencion/espiritualidad/espiritualidad.component';
+import { NutricionalComponent } from './intervencion/nutricional/nutricional.component';
+import { SuenoComponent } from './intervencion/sueno/sueno.component';
 import { JornadaActivaComponent } from './jornada/jornada.component';
 import { EncuestadorComponent } from './encuestador/encuestador.component';
 import { LoginComponent } from './login/login.component';
-import { BioquimicasComponent } from './bioquimicas/bioquimicas.component';
-import { FisiologicasComponent } from './fisiologicas/fisiologicas.component';
-//Encabezado, Footer
+import { BioquimicasComponent } from './intervencion/bioquimicas/bioquimicas.component';
+import { FisiologicasComponent } from './intervencion/fisiologicas/fisiologicas.component';
 
 import { AuthGuard } from './servicios/guard/auth.guard';
 
@@ -35,10 +36,12 @@ const routes: Routes = [
             { path: 'nutricion', component: NutricionalComponent },
             { path: 'sueno', component: SuenoComponent },
             { path: 'espiritual', component: EspiritualidadComponent },
+            { path: 'resumen', component: PresentacionFinalComponent },
         ]},
         { path: 'infoPro', component: InfoProgramaComponent },
         { path: 'infoJor/:id', component: InfoJornadaComponent },
         { path: 'jrna', component: JornadaComponent },
+        { path: 'reportes/:id', component: ReportesComponent },
     ]},
   { path: '**', redirectTo: '' }
 ];

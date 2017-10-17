@@ -1,0 +1,130 @@
+<h3>Variables Fisiológicas</h3>
+<div class="col-sm-5">
+<form *ngIf="questions" class="form-socio" name="form" (ngSubmit)="f.form.valid && saveData()" #f="ngForm" novalidate>
+  <div class="buttonMargin">
+    <label for="birthdate">Fecha de nacimiento</label>
+    <md-form-field class="example-full-width">
+      <input mdInput type="date" [(ngModel)]="date" name="colaborationEntity">
+    </md-form-field>
+  </div>
+  <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !edad.valid }">
+    <label for="age">{{questions[0].question}}</label>
+    <input type="text" #edad="ngModel" [(ngModel)]="age" name="age" (focus)="calculeAge(date)" (keyup)="infoEdad(edad.value)"  class="form-control" aria-describedby="helpBlock" required>
+    <div *ngIf="f.submitted && !edad.valid" class="help-block">Este campo es requerido</div>  
+  </div>
+  <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !peso.valid }">
+    <label for="peso">{{questions[1].question}}</label>
+    <div class="input-group">
+	    <input type="text" #peso="ngModel" [(ngModel)]="weight" name="weight" class="form-control" aria-describedby="helpBlock" required>
+	    <div class="input-group-addon">Kg</div>
+    </div>
+    <div *ngIf="f.submitted && !peso.valid" class="help-block">Este campo es requerido</div>  
+  </div>
+  <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !talla.valid }">
+    <label for="talla">{{questions[2].question}}</label>
+    <div class="input-group">
+	    <input type="text" #talla="ngModel" [(ngModel)]="size" name="size" (blur)="infoTalla(talla.value)" class="form-control" aria-describedby="helpBlock" required>
+	    <div class="input-group-addon">Cm</div>
+    </div>
+    <div *ngIf="f.submitted && !talla.valid" class="help-block">Este campo es requerido</div>  
+  </div>
+  <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !abdomen.valid }">
+    <label for="abdomen">{{questions[3].question}}</label>
+    <div class="input-group">
+	    <input type="text" #abdomen="ngModel" [(ngModel)]="perabdomen" name="perabdomen" (blur)="infoAbdomen(abdomen.value)" class="form-control" aria-describedby="helpBlock" required>
+	    <div class="input-group-addon">Cm</div>
+    </div>
+    <div *ngIf="f.submitted && !abdomen.valid" class="help-block">Este campo es requerido</div>  
+  </div>
+  <div class="form-group">
+    <label for="abdomen">{{questions[4].question}}</label>
+    <div class="input-group">
+	    <input type="text" #icm="ngModel" disabled [(ngModel)]="icminfo" name="icminfo" (focus)="infoICM()" class="form-control" aria-describedby="helpBlock" required>
+	    <div class="input-group-addon">kg/m2</div>
+    </div>
+  </div>
+  <div class="form-group">
+   <label>{{questions[5].question}}</label>
+   <div class="row">
+    <div class="form-group form-group-sm col-lg-6" [ngClass]="{ 'has-error': f.submitted && !sistol.valid }">
+      <label class="control-label" for="formGroupInputSmall">Sistólica: </label>
+      <div class="input-group">
+        <input class="form-control" #sistol="ngModel" [(ngModel)]="sistolica" name="sistolica" type="text" id="formGroupInputSmall" required>
+        <div class="input-group-addon">mm</div>
+      </div>
+      <div *ngIf="f.submitted && !sistol.valid" class="help-block">Este campo es requerido</div>  
+    </div>
+    <div class="form-group form-group-sm col-lg-6" [ngClass]="{ 'has-error': f.submitted && !diastol.valid }">
+      <label class="control-label" for="formGroupInputSmall">Diastólica: </label>
+      <div class="input-group">
+        <input class="form-control" #diastol="ngModel" [(ngModel)]="diastolica" name="diastolica" (blur)="infoTension(diastol.value)" type="text" id="formGroupInputSmall" required>
+        <div class="input-group-addon">Hg</div>
+      </div>
+      <div *ngIf="f.submitted && !diastol.valid" class="help-block">Este campo es requerido</div>  
+    </div>
+   </div>
+  </div>
+  <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !fcardiaca.valid }">
+    <label for="abdomen">{{questions[6].question}}</label>
+    <div class="input-group">
+	    <input type="text" #fcardiaca="ngModel" [(ngModel)]="frecardiaca" name="frecardiaca" (keyup)="infoFcardiaca(fcardiaca.value)" class="form-control" aria-describedby="helpBlock" required>
+	    <div class="input-group-addon">lm</div>
+    </div>
+    <div *ngIf="f.submitted && !fcardiaca.valid" class="help-block">Este campo es requerido</div>  
+  </div>
+   <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !sick.valid }">
+    <label for="insurer">{{questions[7].question}}</label>
+    <select class="form-control" #sick="ngModel" [(ngModel)]="sickness" name="sickness" required>
+      <option>...seleccionar...</option>
+      <option>Ninguna</option>
+      <option>Hipertensión arterial</option>
+      <option>Diabetes Mellitus</option>
+      <option>EPOC</option>
+      <option>Otra</option>
+    </select>
+    <div *ngIf="f.submitted && !sick.valid" class="help-block">Este campo es requerido</div>  
+  </div>
+  <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !med.valid }">
+    <label for="insurer">{{questions[8].question}}</label>
+    <select class="form-control" #med="ngModel" [(ngModel)]="medcoles" name="medcoles" required>
+      <option>...seleccionar...</option>
+      <option>Si</option>
+      <option>No</option>
+    </select>
+    <div *ngIf="f.submitted && !med.valid" class="help-block">Este campo es requerido</div>  
+  </div>
+  <nav aria-label="controles">
+  <ul class="pager">
+    <li><button class="btn btn-default">Enviar</button></li>
+  </ul>
+</nav>
+</form>
+</div>
+<div class="col-sm-4 card">
+  <img src="../../../assets/estaciones/Spanish-Multicultural-006.jpg" class="img-responsive img-thumbnail" alt="Responsive image">
+<md-card class="example-card">
+  <md-card-header>
+    <md-card-title>
+      <h4>Interpretaciones</h4>
+    </md-card-title>
+    <md-card-subtitle>Variables Fisiológicas</md-card-subtitle>
+  </md-card-header>
+  <md-card-content>
+    <p>
+     <strong>ICM: </strong> {{interIcm}}
+    </p>
+    <br>
+    <p>
+      <strong>Abdomen: </strong> {{interAbdomen}}
+    </p>
+    <br>
+    <p>
+      <strong>Categoría TA: </strong> {{interTension}}
+    </p>
+    <br>
+    <p>
+      <strong>Categoría FC: </strong> {{interCardiaca}}
+    </p>
+  </md-card-content>
+</md-card>
+</div>

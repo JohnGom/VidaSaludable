@@ -1,0 +1,21 @@
+<div class="container">
+  <h1>Reportes</h1>
+<table class="table table-inverse">
+<tr>
+  <th>Participante</th>
+  <th>Genero</th>
+  <th>Resultado</th>
+  <th>Fecha</th>
+  <th>Observaciones</th>
+  <th>Fecha seguimiento</th>
+</tr>
+<tr *ngFor="let inter of intervenciones">
+  <td>{{inter.cliente.firstname}} {{inter.cliente.lastname}}</td>
+  <td>{{inter.cliente.gender}}</td>
+  <td>{{inter.resultado}}</td>
+  <td>{{inter.fechaInter}}</td>
+  <td>{{inter.observacion}}</td>
+  <td>{{inter.fechaSegui}}</td>
+</tr>
+</table>
+</div>

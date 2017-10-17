@@ -51,6 +51,13 @@
     </md-form-field>
   </div>
   <div class="buttonMargin">
+    <p>¿Incluir variable Bioquímica?</p>
+    <md-select class="example-full-width" [(ngModel)]="bioquimica" placeholder="" name="estado">
+      <md-option [value]=true >Si</md-option>
+      <md-option [value]=false >No</md-option>
+    </md-select>
+  </div>
+  <div class="buttonMargin">
   <button class="btn btn-info" (click)="update()">Modificar Jornada</button>
   </div>
 </form>

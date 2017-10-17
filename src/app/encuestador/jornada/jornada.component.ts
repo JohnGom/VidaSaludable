@@ -1,7 +1,9 @@
+import { INFO_INTERPRETATION } from './../../reducer/reducers';
 import { ShareDataService } from './../../servicios/sharedata/share-data.service';
 import { User } from './../../data/user';
 import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { JornadaService } from '../../servicios/jornadas/jornada.service';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-jornada',
@@ -13,13 +15,13 @@ export class JornadaComponent implements OnInit {
   dataSource = [];
 
   constructor(private service: JornadaService,
+              private store:Store<any>,
               private shareservice: ShareDataService) {
     
     if(this.user.token !== undefined) {
     this.service.getJornadas(this.user.token).subscribe(
       data => {
       this.dataSource = data.json();
-      console.log(this.dataSource);
     })
     }
   }
@@ -37,8 +39,10 @@ export class JornadaComponent implements OnInit {
     
   }
 
-  send(id: string) {
-    localStorage.setItem('idjornada', id);
+  send(id: number) {
+    let info: any = new Object;
+    info.jornada = id;
+    this.store.dispatch({ type: INFO_INTERPRETATION, payload: info});
   }
 
 }

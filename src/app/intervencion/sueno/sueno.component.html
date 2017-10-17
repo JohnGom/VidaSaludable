@@ -1,0 +1,31 @@
+<div class="col-sm-5">
+<h3>Dimensión Sueño</h3>
+<form class="form-socio" name="form" (ngSubmit)="f.form.valid && saveData()" #f="ngForm" novalidate>
+  <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !suen.valid }">
+    <label >Cuantas horas en promedio duerme usted  diariamente:</label>
+    <input type="text" #suen="ngModel" (blur)="onChangeInfoSueno(suen.value)" [(ngModel)]="infosueno" name="infosuen" class="form-control" aria-describedby="helpBlock" required>
+    <div *ngIf="f.submitted && !suen.valid" class="help-block">Este campo es requerido</div>
+  </div>
+  <nav aria-label="controles">
+  <ul class="pager">
+    <li><button class="btn btn-default">Enviar</button></li>
+  </ul>
+</nav>
+</form>
+</div>
+<div class="col-sm-4 card">
+  <img src="../../../assets/estaciones/Spanish-Multicultural-007.jpg" class="img-responsive img-thumbnail recor" alt="Responsive image">
+<md-card class="example-card">
+  <md-card-header>
+    <md-card-title>
+      <h4>Interpretaciones</h4>
+    </md-card-title>
+    <md-card-subtitle>Dimensión Sueño</md-card-subtitle>
+  </md-card-header>
+  <md-card-content>
+    <p>
+     <strong>Sueño: </strong> {{interSueno}}
+    </p>
+  </md-card-content>
+</md-card>
+</div>

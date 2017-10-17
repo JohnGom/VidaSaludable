@@ -33,6 +33,7 @@ export class NewJornadaComponent implements OnInit {
   public state: string;
   public departments: any;
   public cities: any;
+  public bioquimica: boolean;
 
   states = [{name: 'Planeada'}, {name: 'Ejecutada'}, {name: 'Cancelada'}];
   types = [{name: 'Intramural'}, {name: 'Extramural'}];
@@ -93,6 +94,7 @@ export class NewJornadaComponent implements OnInit {
     jornada.tipo = this.tipo;
     jornada.place = this.place;
     jornada.state = this.state;
+    jornada.bioquimica = this.bioquimica;
     this.jornadaService.saveJornadas(jornada).subscribe((result: any) => {
        if (result.created == true) {
           this.dialogRef.close({"created": true});

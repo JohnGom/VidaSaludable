@@ -1,0 +1,51 @@
+<h1>Interpretación Final</h1>
+<div class="container tablamargen" class="col-sm-8">
+<table class="table table-bordered tablamargen">
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Resultado</th>
+      <th>Recomendación</th>
+      <th>Dimensión</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let row of dataSource">
+      <td>{{row.nombre}}</td>
+      <td>{{row.resultado}}</td>
+      <td>{{row.recomendacion}}</td>
+      <td>{{row.dimension}}</td>
+    </tr>
+  </tbody>
+</table>
+<div class="col-sm-7">
+<div class="form-group">
+  <md-card>
+  <label for="obser">Interpretación final: Nivel de riesgo debido al estilo de vida: </label>
+  <p>{{result}}</p>
+  </md-card>
+</div>
+<div class="form-group">
+  <label for="obser">Observaciones: </label>
+  <textarea class="form-control" [(ngModel)]="observacion" name="observacion" rows="3" ></textarea>
+</div>
+<div class="buttonMargin">
+    <label for="birthdate">Fecha de Seguimiento</label>
+    <md-form-field class="example-full-width">
+      <input mdInput type="date" [(ngModel)]="fechaSegui" name="colaborationEntity">
+    </md-form-field>
+  </div>
+<div class="buttonMargin">
+    <label for="birthdate">Fecha de la Intervención</label>
+    <md-form-field class="example-full-width">
+      <input mdInput type="date" [(ngModel)]="fechaInter" name="colaborationEntity">
+    </md-form-field>
+  </div>
+
+  <nav aria-label="controles">
+  <ul class="pager">
+    <li><a class="btn btn-default" (click)=saveData()>Terminar</a></li>
+  </ul>
+</nav>
+</div>
+</div>

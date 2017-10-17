@@ -1,0 +1,85 @@
+
+<h3>Datos Sociodemográficos</h3>
+<form class="form-socio" class="col-sm-6" name="form" (ngSubmit)="f.form.valid && saveData()" #f="ngForm" novalidate>
+  <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !type.valid }">
+    <label for="insurer">Tipo de Identificacion</label>
+    <select class="form-control" #type="ngModel" [(ngModel)]="typeId" name="typeId" required>
+      <option *ngFor="let tipo of tiposid" [value]="tipo.value">{{tipo.value}}. {{tipo.name}}</option>
+    </select>
+    <div *ngIf="f.submitted && !type.valid" class="help-block">Este campo es requerido</div> 
+  </div>
+  <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !cedula.valid }">
+    <label for="id">Cedula</label>
+    <input type="text" #cedula="ngModel" (keyup.enter)="infoClient(cedula.value)" [(ngModel)]="id" name="id" class="form-control" aria-describedby="helpBlock" required>
+    <div *ngIf="f.submitted && !cedula.valid" class="help-block">Este campo es requerido</div> 
+  </div>
+  <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !name.valid }">
+    <label for="name">Nombres</label>
+    <input type="text" #name="ngModel" id="" class="form-control" [(ngModel)]="firstname" name="firstname" aria-describedby="helpBlock" required>
+    <div *ngIf="f.submitted && !name.valid" class="help-block">Este campo es requerido</div> 
+  </div>
+  <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !name2.valid }">
+    <label for="lastname">Apellidos</label>
+    <input type="text" #name2="ngModel" id="" class="form-control" [(ngModel)]="lastname" name="lastname" aria-describedby="helpBlock" required>
+    <div *ngIf="f.submitted && !name2.valid" class="help-block">Este campo es requerido</div> 
+  </div>
+  <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !gen.valid }">
+    <label for="gender">Género</label>
+    <select class="form-control" #gen="ngModel" [(ngModel)]="gender" placeholder="Genero" name="gender" required>
+      <option *ngFor="let genero of generos" [value]="genero.name">{{genero.name}}</option>
+    </select>
+    <div *ngIf="f.submitted && !gen.valid" class="help-block">Este campo es requerido</div> 
+  </div>
+  <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !civil.valid }">
+    <label for="civilstatus">Estado Civil</label>
+    <select class="form-control" #civil="ngModel" [(ngModel)]="civilStatus" name="civil" required>
+      <option *ngFor="let estado of estadosCiv" [value]="estado.name">{{estado.name}}</option>
+    </select>
+    <div *ngIf="f.submitted && !civil.valid" class="help-block">Este campo es requerido</div> 
+  </div>
+  <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !estrato.valid }">
+    <label for="stratum">Estrato socioeconómico</label>
+    <input type="text" id="" #estrato="ngModel" class="form-control" [(ngModel)]="stratus" name="stratus" aria-describedby="helpBlock" required>
+    <div *ngIf="f.submitted && !estrato.valid" class="help-block">Este campo es requerido</div> 
+  </div>
+  <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !asegu.valid }">
+    <label for="insurer">Asegurador EPS</label>
+    <select class="form-control" #asegu="ngModel" [(ngModel)]="eps" name="eps" required>
+      <option *ngFor="let aseg of tiposAseg" [value]="aseg.name">{{aseg.name}}</option>
+    </select>
+    <div *ngIf="f.submitted && !asegu.valid" class="help-block">Este campo es requerido</div> 
+  </div>
+  <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !opupa.valid }">
+    <label for="occupation">Ocupación</label>
+    <select class="form-control" #opupa="ngModel" [(ngModel)]="occupation" name="occupation" required>
+      <option *ngFor="let ocupacion of ocupaciones" [value]="ocupacion.name">{{ocupacion.name}}</option>
+    </select>
+    <div *ngIf="f.submitted && !opupa.valid" class="help-block">Este campo es requerido</div> 
+  </div>
+  <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !estudio.valid }">
+    <label for="leveleducation">Nivel de Escolaridad</label>
+    <select class="form-control" #estudio="ngModel" [(ngModel)]="education" name="education" required>
+      <option *ngFor="let nivel of nivelesEst" [value]="nivel.name">{{nivel.name}}</option>
+    </select>
+    <div *ngIf="f.submitted && !estudio.valid" class="help-block">Este campo es requerido</div> 
+  </div>
+  <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !relig.valid }">
+    <label for="religion">Orientación Religiosa</label>
+    <select class="form-control" #relig="ngModel" [(ngModel)]="religion" name="religion" required>
+      <option *ngFor="let relig of religiones" [value]="relig.name">{{relig.name}}</option>
+    </select>
+    <div *ngIf="f.submitted && !relig.valid" class="help-block">Este campo es requerido</div> 
+  </div>
+  <div class="buttonMargin" [ngClass]="{ 'has-error': f.submitted && !date.valid }">
+    <label for="birthdate">Fecha de nacimiento</label>
+    <md-form-field class="example-full-width">
+      <input mdInput type="date" #date="ngModel" [(ngModel)]="birthdate" name="colaborationEntity" required>
+    </md-form-field>
+    <div *ngIf="f.submitted && !date.valid" class="help-block">Este campo es requerido</div> 
+  </div>
+  <nav aria-label="controles">
+  <ul class="pager">
+    <li><button class="btn btn-default">Enviar</button></li>
+  </ul>
+</nav>
+</form>

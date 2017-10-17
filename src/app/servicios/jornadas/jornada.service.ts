@@ -11,6 +11,12 @@ export class JornadaService {
     let URL = `http://localhost:8080/jersey-starterkit/rest/jornada/getjornadabyencuestador?encuestador=${id}`;
     return this.http.get(URL)
  }
+
+ getInterventions(id: number) {
+    let URL = `http://localhost:8080/jersey-starterkit/rest/client/getinterventions?id=${id}`;
+    return this.http.get(URL)
+ }
+
 public getallJornadas(id: number) {
     let URL = `http://localhost:8080/jersey-starterkit/rest/jornada/allJornadas?programa=${id}`;
     return this.http.get(URL)

@@ -1,0 +1,40 @@
+<div class="col-sm-5">
+<h3>Dimensión Espiritualidad</h3>
+<form class="form-socio" name="form" (ngSubmit)="f.form.valid && saveData()" #f="ngForm" novalidate>
+  <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !espiri.valid }">
+    <label for="insurer">Teniendo en cuenta que la espiritualidad es la tendencia a reconocer a Dios, o a un ser superior, y la manifestación práctica en mi relacionamiento conmigo mismo, con los demás y con el cuidado del medio ambiente, usted se califica como</label>
+    <select class="form-control" #espiri="ngModel" (change)="onChangeInfoEspiritual($event.target.value)" [(ngModel)]="espiritual" name="espiritual" required>
+      <option>...seleccionar...</option>
+      <option>Espiritual</option>
+      <option>Moderadamente espiritual</option>
+      <option>Poco Espiritual</option>
+      <option>No Espiritual</option>
+    </select>
+    <div *ngIf="f.submitted && !espiri.valid" class="help-block">Este campo es requerido</div>
+  </div>
+  <nav aria-label="controles">
+  <ul class="pager">
+    <li><button class="btn btn-default">Enviar</button></li>
+  </ul>
+</nav>
+</form>
+</div>
+<div class="col-sm-4 card">
+  <img src="../../../assets/estaciones/Spanish-Multicultural-008.jpg" class="img-responsive img-thumbnail" alt="Responsive image">
+<md-card class="example-card">
+  <md-card-header>
+    <md-card-title>
+      <h4>Interpretaciones</h4>
+    </md-card-title>
+    <md-card-subtitle>Dimensión Espiritualidad</md-card-subtitle>
+  </md-card-header>
+  <md-card-content>
+    <p>
+     <strong>Interpretación Espiritualidad: </strong> {{interEspiritual}}
+    </p>
+    <p>
+     R/ {{recoEspiritual}}
+    </p>
+  </md-card-content>
+</md-card>
+</div>

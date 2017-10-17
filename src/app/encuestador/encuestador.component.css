@@ -75,3 +75,10 @@
     98.5% { left:-105%; }
     100%  { left:-5%; }
 }
+
+.contain { 
+  background-size: cover;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}

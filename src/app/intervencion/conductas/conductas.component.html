@@ -1,0 +1,138 @@
+<div class="col-sm-5">
+<h3>Control de conductas de riesgo</h3>
+<form class="form-socio" name="form" (ngSubmit)="f.form.valid && saveData()" #f="ngForm" novalidate>
+  <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !fuma.valid }">
+    <label for="gender">¿Usted fuma?</label>
+    <select class="form-control" #fuma="ngModel" (change)="onChangeSmoke($event.target.value)" [(ngModel)]="smoke" name="smoke" required>
+      <option>Si</option>
+      <option>No</option>
+    </select>
+    <div *ngIf="f.submitted && !fuma.valid" class="help-block">Este campo es requerido</div>
+  </div>
+  <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !fuma1.valid && smoke === 'Si' }">
+    <label for="civilstatus">¿Su hábito de fumar es muy importante para usted?</label>
+    <select class="form-control" #fuma1="ngModel" [disabled]="smoke === 'No'" [(ngModel)]="smoke1" name="smoke1" required>
+      <option>Siempre</option>
+      <option>A menudo</option>
+      <option>A veces</option>
+      <option>Raramente</option>
+      <option>Nunca</option>
+    </select>
+    <div *ngIf="f.submitted && !fuma1.valid && smoke === 'Si'" class="help-block">Este campo es requerido</div>
+  </div>
+  <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !fuma2.valid && smoke === 'Si' }">
+    <label for="civilstatus">¿Se recompensa a si mismo/a con un cigarrillo tras cumplir una tarea?</label>
+    <select class="form-control" #fuma2="ngModel" [disabled]="smoke === 'No'" [(ngModel)]="smoke2" name="smoke2" required>
+      <option>Siempre</option>
+      <option>A menudo</option>
+      <option>A veces</option>
+      <option>Raramente</option>
+      <option>Nunca</option>
+    </select>
+    <div *ngIf="f.submitted && !fuma2.valid && smoke === 'Si'" class="help-block">Este campo es requerido</div>
+  </div>
+  <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !fuma3.valid && smoke === 'Si' }">
+    <label for="occupation">¿Se angustia cuando se queda sin cigarrillos o no consigue encontrar el paquete de tabaco?</label>
+    <select class="form-control" #fuma3="ngModel" [disabled]="smoke === 'No'" [(ngModel)]="smoke3" name="smoke3" required>
+      <option>Siempre</option>
+      <option>A menudo</option>
+      <option>A veces</option>
+      <option>Raramente</option>
+      <option>Nunca</option>
+    </select>
+    <div *ngIf="f.submitted && !fuma3.valid && smoke === 'Si'" class="help-block">Este campo es requerido</div>
+  </div>
+  <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !fuma4.valid && smoke === 'Si' }">
+    <label for="leveleducation">¿Cuándo no tiene tabaco, le resulta difícil concentrarse o realizar cualquier tarea?</label>
+    <select class="form-control" #fuma4="ngModel" [disabled]="smoke === 'No'" (change)="onChangeInfoSmoke($event.target.value)" [(ngModel)]="smoke4" name="smoke4" required>
+      <option>Siempre</option>
+      <option>A menudo</option>
+      <option>A veces</option>
+      <option>Raramente</option>
+      <option>Nunca</option>
+    </select>
+    <div *ngIf="f.submitted && !fuma4.valid && smoke === 'Si'" class="help-block">Este campo es requerido</div>
+  </div>
+ <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !alcohol.valid }">
+    <label for="gender">¿Usted toma bebidas alcohólicas?</label>
+    <select class="form-control" #alcohol="ngModel" (change)="onChangeDrinkBeer($event.target.value)" [(ngModel)]="drinkBeer" name="drinkBeer" required>
+      <option>Si</option>
+      <option>No</option>
+    </select>
+    <div *ngIf="f.submitted && !alcohol.valid" class="help-block">Este campo es requerido</div>
+  </div>
+  <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !alcohol1.valid && drinkBeer === 'Si' }">
+    <label for="gender">¿En el último año ha sentido alguna vez la necesidad de disminuir la cantidad de alcohol que toma?</label>
+    <select class="form-control" #alcohol1="ngModel" [disabled]="drinkBeer === 'No'" [(ngModel)]="drinkBeer1" name="drinkBeer1" required>
+      <option>Si</option>
+      <option>No</option>
+    </select>
+    <div *ngIf="f.submitted && !alcohol1.valid && drinkBeer === 'Si'" class="help-block">Este campo es requerido</div>
+  </div>
+  <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !alcohol2.valid && drinkBeer === 'Si' }">
+    <label for="gender">¿En el último año ha sentido usted molesto por que le critican su manera de beber?</label>
+    <select class="form-control" #alcohol2="ngModel" [disabled]="drinkBeer === 'No'" [(ngModel)]="drinkBeer2" name="drinkBeer2" required>
+      <option>...seleccionar...</option>
+      <option>Si</option>
+      <option>No</option>
+    </select>
+    <div *ngIf="f.submitted && !alcohol2.valid && drinkBeer === 'Si'" class="help-block">Este campo es requerido</div>
+  </div>
+  <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !alcohol3.valid && drinkBeer === 'Si' }">
+    <label for="gender">¿En el último año ha sentido alguna vez mal o culpable por su manera de beber?</label>
+    <select class="form-control" #alcohol3="ngModel" [disabled]="drinkBeer === 'No'" [(ngModel)]="drinkBeer3" name="drinkBeer3" required>
+      <option>...seleccionar...</option>
+      <option>Si</option>
+      <option>No</option>
+    </select>
+    <div *ngIf="f.submitted && !alcohol3.valid && drinkBeer === 'Si'" class="help-block">Este campo es requerido</div>
+  </div>
+   <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !alcohol4.valid && drinkBeer === 'Si' }">
+    <label for="gender">¿En el último año ha tomado alguna vez un trago a primera hora en la mañana para calmar los nervios o quitar el guayabo?</label>
+    <select class="form-control" #alcohol4="ngModel" [disabled]="drinkBeer === 'No'" (change)="onChangeInfoDrinkBeer($event.target.value)" [(ngModel)]="drinkBeer4" name="drinkBeer4" required>
+      <option>...seleccionar...</option>
+      <option>Si</option>
+      <option>No</option>
+    </select>
+    <div *ngIf="f.submitted && !alcohol4.valid && drinkBeer === 'Si'" class="help-block">Este campo es requerido</div>
+  </div>
+  <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !estr.valid }">
+    <label for="leveleducation">Me siento capaz de manejar el estrés y ansiedad en vida</label>
+    <select class="form-control" #estr="ngModel" (change)="onChangeInfoStress($event.target.value)" [(ngModel)]="stress" name="stress" required>
+      <option>...seleccionar...</option>
+      <option>Siempre</option>
+      <option>Con alguna frecuencia</option>
+      <option>Con Poca frecuencia</option>
+      <option>Nunca</option>
+    </select>
+    <div *ngIf="f.submitted && !estr.valid" class="help-block">Este campo es requerido</div>
+  </div>
+  <nav aria-label="controles">
+  <ul class="pager">
+    <li><button class="btn btn-default">Enviar</button></li>
+  </ul>
+</nav>
+</form>
+</div>
+<div class="col-sm-4 card">
+  <img src="../../../assets/estaciones/Spanish-Multicultural-005.jpg" class="img-responsive img-thumbnail" alt="Responsive image">
+<md-card class="example-card">
+  <md-card-header>
+    <md-card-title>
+      <h4>Interpretaciones</h4>
+    </md-card-title>
+    <md-card-subtitle>Conductas de Riesgo</md-card-subtitle>
+  </md-card-header>
+  <md-card-content>
+    <p>
+     <strong>Fumar: </strong> {{interSmoke}}
+    </p>
+    <p>
+     <strong>Alcohol: </strong> {{interDrinkBeer}}
+    </p>
+    <p>
+     <strong>Estrés: </strong> {{interStress}}
+    </p>
+  </md-card-content>
+</md-card>
+</div>
