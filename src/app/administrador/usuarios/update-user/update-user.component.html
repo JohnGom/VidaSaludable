@@ -1,31 +1,33 @@
 <form class="form">
     <h2>Datos Usuario</h2>
   <div>
-    <md-form-field class="example-full-width">
-        <input mdInput [(ngModel)]="id" name="id" placeholder="Cedula" >
-    </md-form-field>
+    <mat-form-field class="example-full-width">
+        <input matInput [(ngModel)]="id" name="id" placeholder="Cedula" >
+    </mat-form-field>
   </div>
   <div>
-    <md-form-field class="example-full-width">
-        <input mdInput [(ngModel)]="name" name="name" placeholder="Nombre" >
-    </md-form-field>
+    <mat-form-field class="example-full-width">
+        <input matInput [(ngModel)]="name" name="name" placeholder="Nombre" >
+    </mat-form-field>
   </div>
   <div>
-    <md-form-field class="example-full-width">
-        <input mdInput [(ngModel)]="username" name="username" placeholder="Nombre de usuario">
-    </md-form-field>
+    <mat-form-field class="example-full-width">
+        <input matInput [(ngModel)]="username" name="username" placeholder="Nombre de usuario">
+    </mat-form-field>
   </div>
   <div>
-    <md-form-field class="example-full-width">
-        <input mdInput [(ngModel)]="password" name="password" placeholder="Contraseña">
-    </md-form-field>
+    <mat-form-field class="example-full-width">
+        <input matInput [(ngModel)]="password" name="password" placeholder="Contraseña">
+    </mat-form-field>
   </div>
   <div>
-  <md-select class="example-full-width" [(ngModel)]="type" placeholder="Rol" name="tipo">
-    <md-option *ngFor="let typ of types" [value]="typ.name">
-      {{ typ.name }}
-    </md-option>
-  </md-select>
+    <mat-form-field class="example-full-width">
+      <mat-select class="example-full-width" [(ngModel)]="type" placeholder="Rol" name="tipo">
+        <mat-option *ngFor="let typ of types" [value]="typ.name">
+          {{ typ.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
   </div>
   <div class="buttonMargin">
   <button class="btn btn-info" (click)="update()">Modificar Usuario</button>

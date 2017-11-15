@@ -3,7 +3,6 @@ import { InterpretationService } from './../../servicios/interpretations/interpr
 import { BenefitedService } from './../../servicios/benefited/benefited.service';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { DatePickerOptions, DateModel } from 'ng2-datepicker';
 import { Store } from '@ngrx/store';
 
 @Component({
@@ -13,20 +12,19 @@ import { Store } from '@ngrx/store';
 })
 export class SociodemograficosComponent implements OnInit {
   dataSource: object;
-  private id: number;
-	private typeId: string;
-	private education: string;
-	private firstname: string;
-	private lastname: string;
-	private birthdate: Date;
-	private gender: string;
-	private stratus: number;
-	private civilStatus: string;
-	private eps: string;
-	private occupation: string;
-	private religion: string;
-  private jornada: any;
-  options: DatePickerOptions;
+  public id: number;
+	public typeId: string;
+	public education: string;
+	public firstname: string;
+	public lastname: string;
+	public birthdate: Date;
+	public gender: string;
+	public stratus: number;
+	public civilStatus: string;
+	public eps: string;
+	public occupation: string;
+	public religion: string;
+  public jornada: any;
 
   generos = [{name: 'Masculino'}, {name: 'Femenino'}];
   estadosCiv = [{name: 'Soltero'}, {name: 'Unión Libre'}, {name: 'Casado'}, {name: 'Separado/divorciado'}, {name: 'Viudo'}];
@@ -43,7 +41,6 @@ export class SociodemograficosComponent implements OnInit {
     this.store.select('people').subscribe((result) => {
       this.jornada = result.jornada;
     });
-        this.options = new DatePickerOptions();
       }
 
   ngOnInit() {
@@ -95,6 +92,7 @@ export class SociodemograficosComponent implements OnInit {
           info.jornada = this.jornada;
           info.idpar = this.id;
           info.date = this.birthdate;
+          info.gender = this.gender;
           info.inter = parseInt(result.text())
           this.store.dispatch({ type: INFO_INTERPRETATION, payload: info});
       });

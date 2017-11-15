@@ -1,8 +1,11 @@
+import { ServiceModalService } from './../../service-modal/service-modal.service';
 import { InterpretationService } from './../../servicios/interpretations/interpretation.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Response } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
+
+import * as jsPDF from 'jspdf'
 
 @Component({
   selector: 'app-presentacion-final',
@@ -10,15 +13,21 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./presentacion-final.component.css']
 })
 export class PresentacionFinalComponent implements OnInit {
-  private jornada: any;
-  private idPar: any;
-  private intervencion: any;
+
+  @ViewChild('imprimir') el: ElementRef;
+
+  public jornada: any;
+  public idPar: any;
+  public correo: string;
+  public intervencion: any;
   public dataSource = [];
-  private observacion: string;
-  private result;
-  private fechaInter: Date;
-  private fechaSegui: Date;
+  public observacion: string;
+  public result;
+  public fechaInter: Date;
+  public fechaSegui: Date;
+
   constructor(private service: InterpretationService,
+              public modalService: ServiceModalService,
               private store:Store<any>,
               private router: Router,
               ) {
@@ -58,12 +67,42 @@ export class PresentacionFinalComponent implements OnInit {
     interven.resultado = this.result;
     interven.fechaInter = this.fechaInter;
     interven.fechaSegui = this.fechaSegui;
+    interven.correo = this.correo;
     interven.id = this.intervencion;
     this.service.updateIntervention(interven).subscribe((result: any) => {
        if(result.text() == 'ok') {
          this.router.navigate(['/salud/jrna']);
        }
     });
+  }
+
+  sendEmail(divName){
+    var docHead = document.head.outerHTML;
+    var printContents = document.getElementById(divName).outerHTML;
+    let interven: any = new Object;
+    interven.observacion = this.observacion;
+    interven.resultado = this.result;
+    interven.interpretaciones = this.dataSource;
+    this.modalService.SendEmail(interven).subscribe((data: any) => {
+      if (data) {
+        this.correo = data.correo;
+        alert("Correo Enviado");
+      }
+    });
+  }
+
+  printDiv(divName) {
+  var docHead = document.head.outerHTML;
+  var printContents = document.getElementById(divName).outerHTML;
+  
+  var winAttr = "location=yes, statusbar=no, menubar=no, titlebar=no, toolbar=no,dependent=no, width=865, height=600, resizable=yes, screenX=200, screenY=200, personalbar=no, scrollbars=yes";
+
+  var newWin = window.open("", "_blank", winAttr);
+  var writeDoc = newWin.document;
+  writeDoc.open();
+  writeDoc.write('<!doctype html><html>' + docHead + '<body onLoad="window.print()">' + printContents + '</body></html>');
+  writeDoc.close();
+  newWin.focus();
   }
 
 }

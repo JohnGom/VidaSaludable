@@ -27,6 +27,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: '', redirectTo: '/salud', pathMatch: 'full' },
   { path: 'salud', component: AssignedLinkComponent, canActivate: [AuthGuard], children: [
+        { path: '', redirectTo: '/salud', pathMatch: 'full' },
         { path: 'jorActiva', component: JornadaActivaComponent, children: [
             { path: 'socio', component: SociodemograficosComponent },
             { path: 'fisio', component: FisiologicasComponent },

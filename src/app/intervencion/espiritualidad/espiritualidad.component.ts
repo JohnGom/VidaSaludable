@@ -10,13 +10,14 @@ import { Store } from '@ngrx/store';
   styleUrls: ['./espiritualidad.component.css']
 })
 export class EspiritualidadComponent implements OnInit {
-  private jornada: any;
-  private idPar: any;
-  private intervencion: any;
-  private questions: object;
+  public jornada: any;
+  public idPar: any;
+  public intervencion: any;
+  public questions: any = [];
+  public infoInter: any = [];
   espiritual: string;
-  private interEspiritual: string;
-  private recoEspiritual: string;
+  public interEspiritual: string;
+  public recoEspiritual: string;
 
   constructor(private service: InterpretationService,
               private store:Store<any>,
@@ -36,30 +37,33 @@ export class EspiritualidadComponent implements OnInit {
     this.service.getQuestions('espiritual').subscribe(
       data => {
       this.questions = data.json();
-      console.log(this.questions);
-    })
+    });
+    this.service.getInfoInterp('espiritual').subscribe(
+      data => {
+      this.infoInter = data.json();
+    });
   }
 
   onChangeInfoEspiritual(value){
     this.interEspiritual = value
-    if(this.interEspiritual === 'Espiritual') {
-      this.recoEspiritual = 'Continúa fortaleciendo diariamente tu espiritualidad para mejorar tu sistema inmunológico y salud mental'
-    } else if (this.interEspiritual === 'Moderadamente espiritual') {
-      this.recoEspiritual = 'Busca incorporar en tu vida nuevas prácticas religiosas y/o espirituales individuales, grupales o en contacto con la naturaleza para mejorar tu sistema inmunológico, tu salud mental y control del estrés';
-    } else if (this.interEspiritual === 'Poco Espiritual') {
-      this.recoEspiritual = 'Incorpora en tu vida prácticas religiosas y/o espirituales individuales, grupales o en contacto con la naturaleza para mejorar tu sistema inmunológico, tu salud mental y control del estrés';
-    } else if (this.interEspiritual === 'No Espiritual') {
-      this.recoEspiritual = 'Incorpora en tu vida prácticas religiosas y/o espirituales individuales, grupales o en contacto con la naturaleza para mejorar tu sistema inmunológico, tu salud mental y control de estrés';
+    if(this.interEspiritual === this.infoInter[0].categoria) {
+      this.recoEspiritual = this.infoInter[0].recomendacion;
+    } else if (this.interEspiritual === this.infoInter[1].categoria) {
+      this.recoEspiritual = this.infoInter[1].recomendacion;
+    } else if (this.interEspiritual === this.infoInter[2].categoria) {
+      this.recoEspiritual = this.infoInter[2].recomendacion;
+    } else if (this.interEspiritual === this.infoInter[3].categoria) {
+      this.recoEspiritual = this.infoInter[0].recomendacion;  
     }
   }
 
   increPuntaje() {
     let puntaje = 0;
-    if(this.interEspiritual === 'Espiritual') {
+    if(this.interEspiritual === this.infoInter[0].categoria) {
       puntaje += 10;
-    } else if (this.interEspiritual === 'Moderadamente espiritual') {
+    } else if (this.interEspiritual === this.infoInter[1].categoria) {
       puntaje += 7;
-    } else if (this.interEspiritual === 'Poco Espiritual') {
+    } else if (this.interEspiritual === this.infoInter[2].categoria) {
       puntaje += 4;
     }
     this.store.dispatch({ type: INCREMENT_PUNTAJE, payload: puntaje});

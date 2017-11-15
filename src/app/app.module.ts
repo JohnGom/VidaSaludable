@@ -1,3 +1,5 @@
+import { TableDataSource } from './coordinador/reportes/table-data-source/table-data-source.component';
+import { SendEmailComponent } from './intervencion/presentacion-final/sendemail/send-email.component';
 import { mainReducer, peopleReducer } from './reducer/reducers';
 import { ShareDataService } from './servicios/sharedata/share-data.service';
 import { InterpretationService } from './servicios/interpretations/interpretation.service';
@@ -10,7 +12,6 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AppRoutingModule } from './app-routing.module';
-import { DatePickerModule } from 'ng2-datepicker';
 import { CdkTableModule } from '@angular/cdk/table';
 
 import { AppComponent } from './app.component';
@@ -27,18 +28,24 @@ import { FisiologicasComponent } from './intervencion/fisiologicas/fisiologicas.
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from "@angular/flex-layout";
-import { MdDatepickerModule, 
-  MdCardModule, 
-  MdButtonModule, 
-  MdTabsModule, 
-  MdTableModule,
-  MdDialogModule, 
-  MdInputModule,
-  MdSelectModule,
-  MdAutocompleteModule,
-  MdListModule,
-  MdButtonToggleModule } from '@angular/material';
+import { MatDatepickerModule,
+  MatNativeDateModule,
+  MatFormFieldModule,
+  MatCardModule, 
+  MatButtonModule,
+  MatTabsModule, 
+  MatTableModule,
+  MatDialogModule, 
+  MatInputModule,
+  MatSelectModule,
+  MatAutocompleteModule,
+  MatListModule,
+  MatSortModule,
+  MatPaginatorModule,
+  MatChipsModule,
+  MatButtonToggleModule } from '@angular/material';
 import { StoreModule } from '@ngrx/store';
+import { ChartsModule } from 'ng2-charts';
 
 import { AuthserviceService } from './servicios/authservice.service';
 import { ProgramService } from './servicios/programas/program.service';
@@ -85,6 +92,7 @@ import { ReportesComponent } from './coordinador/reportes/reportes.component';
     NewProgramComponent,
     UpdateProgramComponent,
     NewJornadaComponent,
+    SendEmailComponent,
     UpdateJornadaComponent,
     AdministradorComponent,
     UsuariosComponent,
@@ -100,22 +108,27 @@ import { ReportesComponent } from './coordinador/reportes/reportes.component';
     HttpModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    DatePickerModule,
     FlexLayoutModule,
     BrowserAnimationsModule,
-    MdDatepickerModule,
-    MdButtonModule,
-    MdCardModule,
-    MdTabsModule,
-    MdTableModule,
+    MatDatepickerModule,
+    MatButtonModule,
+    MatChipsModule,
+    MatCardModule,
+    MatTabsModule,
+    MatTableModule,
     CdkTableModule,
-    MdCardModule, 
-    MdDialogModule, 
-    MdInputModule,
-    MdSelectModule,
-    MdListModule,
-    MdAutocompleteModule,
-    MdButtonToggleModule,
+    MatCardModule, 
+    MatDialogModule,
+    MatNativeDateModule,
+    MatInputModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    MatListModule,
+    MatSortModule,
+    MatAutocompleteModule,
+    MatButtonToggleModule,
+    MatPaginatorModule,
+    ChartsModule,
     StoreModule.forRoot(mainReducer)
   ],
   providers: [
@@ -129,6 +142,7 @@ import { ReportesComponent } from './coordinador/reportes/reportes.component';
     NewProgramComponent,
     UpdateProgramComponent,
     NewJornadaComponent,
+    SendEmailComponent,
     UpdateJornadaComponent,
     NewUserComponent,
     UpdateUserComponent,
@@ -138,6 +152,7 @@ import { ReportesComponent } from './coordinador/reportes/reportes.component';
   ],
   entryComponents: [ 
     NewProgramComponent,
+    SendEmailComponent,
     UpdateProgramComponent,
     NewJornadaComponent,
     UpdateJornadaComponent,

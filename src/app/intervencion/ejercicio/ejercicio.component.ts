@@ -10,14 +10,15 @@ import { Store } from '@ngrx/store';
   styleUrls: ['./ejercicio.component.css']
 })
 export class EjercicioComponent implements OnInit {
-  private jornada: any;
-  private idPar: any;
-  private intervencion: any;
-  private questions: object;
-  private exercise: string;
-  private exercise1: string;
-  private interExercise: string;
-  private recoExercise: string;
+  public jornada: any;
+  public idPar: any;
+  public intervencion: any;
+  public questions: object;
+  public infoInter: object;
+  public exercise: string;
+  public exercise1: string;
+  public interExercise: string;
+  public recoExercise: string;
   constructor(private service: InterpretationService,
               private store:Store<any>,
               private router: Router) {
@@ -36,20 +37,23 @@ export class EjercicioComponent implements OnInit {
     this.service.getQuestions('ejercicio').subscribe(
       data => {
       this.questions = data.json();
-      console.log(this.questions);
-    })
+    });
+    this.service.getInfoInterp('ejercicio').subscribe(
+      data => {
+      this.infoInter = data.json();
+    });
   }
 
   onChangeInfo(value) {
     if(this.exercise === 'Si' && value === 'Si') {
-      this.interExercise = 'Físicamente activo';
-      this.recoExercise = 'Mantén tu nivel de actividad física. Realizar Actividad Física contribuye a tu salud mental y física y aumenta el número de años de vida saludable';
+      this.interExercise = this.infoInter[0].categoria;
+      this.recoExercise = this.infoInter[0].recomendacion;
     } else if(this.exercise === 'Si' && value === 'No') {
-      this.interExercise = 'Recientemente activo físicamente';
-      this.recoExercise = 'Mantén tu nivel de actividad física. Realizar Actividad Física contribuye a tu salud mental y física y aumenta el número de años de vida saludable';
+      this.interExercise = this.infoInter[1].categoria;
+      this.recoExercise = this.infoInter[1].recomendacion;
     } else if(this.exercise === 'No' && value === 'No') {
-      this.interExercise = 'Físicamente inactivo';
-      this.recoExercise = 'Debes Realizar actividad física mínimo 30 minutos por día por 5 días a la semana para mejorar tu salud mental y física y aumentar el número de años de vida saludable';
+      this.interExercise = this.infoInter[2].categoria;
+      this.recoExercise = this.infoInter[2].recomendacion;
     } else {
       alert("Esta posibilidad de respuesta no es coherente. Revise las respuestas");
     }
@@ -57,9 +61,9 @@ export class EjercicioComponent implements OnInit {
 
   increPuntaje() {
     let puntaje = 0;
-    if(this.interExercise === 'Físicamente activo') {
+    if(this.interExercise === this.infoInter[0].categoria) {
       puntaje += 25;
-    } else if (this.interExercise === 'Recientemente activo físicamente') {
+    } else if (this.interExercise === this.infoInter[1].categoria) {
       puntaje += 12.5;
     }
 

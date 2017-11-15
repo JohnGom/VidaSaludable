@@ -72,9 +72,9 @@
   </div>
   <div class="buttonMargin" [ngClass]="{ 'has-error': f.submitted && !date.valid }">
     <label for="birthdate">Fecha de nacimiento</label>
-    <md-form-field class="example-full-width">
-      <input mdInput type="date" #date="ngModel" [(ngModel)]="birthdate" name="colaborationEntity" required>
-    </md-form-field>
+    <mat-form-field class="example-full-width">
+      <input matInput type="date" #date="ngModel" [(ngModel)]="birthdate" name="colaborationEntity" required>
+    </mat-form-field>
     <div *ngIf="f.submitted && !date.valid" class="help-block">Este campo es requerido</div> 
   </div>
   <nav aria-label="controles">

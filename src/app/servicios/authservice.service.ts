@@ -17,9 +17,11 @@ public token: string;
                 (data) => {
 
                 let info = data.json();
+                console.log(info);
+                
                 if (info) {
                     // store username and jwt token in local storage to keep user logged in between page refreshes
-                    localStorage.setItem('currentUser', JSON.stringify({ username: username, token: info.id, type: info.type }));  
+                    localStorage.setItem('currentUser', JSON.stringify({ username: username, name: info.name, token: info.id, type: info.type }));  
                     // return true to indicate successful login
                     return true;
                 } else {

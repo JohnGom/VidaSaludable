@@ -1,0 +1,20 @@
+.esp {
+    margin-bottom: 40px
+}
+.example-header {
+  min-height: 64px;
+  display: flex;
+  align-items: baseline;
+  padding: 8px 24px 0;
+  font-size: 20px;
+  justify-content: space-between;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  margin-left: 32px;
+}
+
+.tamaño {
+  width: 30px
+}

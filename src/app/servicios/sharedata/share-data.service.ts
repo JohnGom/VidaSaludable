@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class ShareDataService {
   public identification: number;
-  private idJornada = 1;
+  public idJornada = 1;
 
   constructor() { }
 

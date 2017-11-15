@@ -1,4 +1,6 @@
-import { INFO_INTERPRETATION } from './../../reducer/reducers';
+import { JornadasService } from './../../servicios/offline/jornadas/jornada.service';
+import { InterpretationService } from './../../servicios/interpretations/interpretation.service';
+import { INFO_INTERPRETATION, ESTADO_BIOQUIMICA } from './../../reducer/reducers';
 import { ShareDataService } from './../../servicios/sharedata/share-data.service';
 import { User } from './../../data/user';
 import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
@@ -16,12 +18,16 @@ export class JornadaComponent implements OnInit {
 
   constructor(private service: JornadaService,
               private store:Store<any>,
-              private shareservice: ShareDataService) {
+              private service2: InterpretationService,
+              private shareservice: ShareDataService,
+              private _service: JornadasService) {
     
     if(this.user.token !== undefined) {
     this.service.getJornadas(this.user.token).subscribe(
       data => {
       this.dataSource = data.json();
+      console.log(data.json());
+      
     })
     }
   }
@@ -36,13 +42,18 @@ export class JornadaComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+    this.service2.getInfoInterp('espiritual').subscribe(
+      data => {
+      console.log(data.json());
+    })
   }
 
-  send(id: number) {
+  send(infojor: any) {
     let info: any = new Object;
-    info.jornada = id;
+    info.jornada = infojor.id;
+    let bio = infojor.bioquimica;
     this.store.dispatch({ type: INFO_INTERPRETATION, payload: info});
+    this.store.dispatch({ type: ESTADO_BIOQUIMICA, payload: bio});
   }
 
 }

@@ -1,5 +1,5 @@
 import { ProgramService } from './../../../servicios/programas/program.service';
-import { MdDialogRef, MD_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Component, OnInit } from '@angular/core';
 import { Inject } from '@angular/core';
 
@@ -14,8 +14,8 @@ export class NewProgramComponent {
   public description: string;
   public entity: string;
   constructor(public programService: ProgramService,
-              public dialogRef: MdDialogRef<NewProgramComponent>,
-              @Inject(MD_DIALOG_DATA) public data: any) { }
+              public dialogRef: MatDialogRef<NewProgramComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   save() {
     let program: any = new Object;

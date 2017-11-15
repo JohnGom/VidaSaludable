@@ -21,9 +21,13 @@
       <td>{{row.city}}</td>
       <td>{{row.department}}</td>
       <td>{{row.state}}</td>
-      <td><a class="btn btn-success btn-xs" (click)="send(row.id)" [routerLink]="['../jorActiva/socio']">
+      <td><a class="btn btn-success btn-xs" (click)="send(row)" [routerLink]="['../jorActiva/socio']">
       <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Nuevo Participante</a></td>
     </tr>
   </tbody>
 </table>
+  <div class="text-center">
+  <button type="button" class="btn btn-success" (click)="synchronize()">
+    <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Sincronizar Informacion</button>
+  </div>
 </div>

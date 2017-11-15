@@ -51,5 +51,15 @@
     </div>
   </div>
 </nav>-->
+
+<div *ngIf="router.url==='/salud'" class="jumbotron messag">
+ <div class="container">
+  <h1>BIENVENIDO, {{name}}</h1>
+  <p>Aquí gestionaras todas los Programas, donde podrás ingresar las respectivas Jornadas a realizar y 
+    obtendrás toda la información recolectada de las mismas</p>
+  <p><a class="btn btn-primary btn-lg" [routerLink]="['infoPro']" role="button">Ver Programas</a></p>
+ </div>
+</div>
+
 <router-outlet></router-outlet>
 

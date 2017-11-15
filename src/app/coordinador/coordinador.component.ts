@@ -1,5 +1,5 @@
 import { AuthserviceService } from './../servicios/authservice.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -11,8 +11,10 @@ export class CoordinadorComponent implements OnInit {
 
   indexSelected: number;
   idprogram: number;
+  @Input() name: string;
+  
   constructor(private service: AuthserviceService,
-              private router: Router) { }
+              public router: Router) { }
 
   ngOnInit() {
   }
@@ -26,4 +28,5 @@ export class CoordinadorComponent implements OnInit {
   this.indexSelected = index;
   this.idprogram = id;
 }
+
 }

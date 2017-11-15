@@ -1,3 +1,7 @@
 .tablamargen {
  	padding-right: 40px;
 }
+
+.example-print {
+    display: none;
+}

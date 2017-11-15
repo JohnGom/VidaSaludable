@@ -10,27 +10,28 @@ import { Store } from '@ngrx/store';
   styleUrls: ['./conductas.component.css']
 })
 export class ConductasComponent implements OnInit {
-  private questions: object;
-  private smoke: string = '';
-  private smoke1: string = '';
-  private smoke2: string = '';
-  private smoke3: string = '';
-  private smoke4: string = '';
-  private drinkBeer: string;
-  private drinkBeer1: string = '';
-  private drinkBeer2: string = '';
-  private drinkBeer3: string = '';
-  private drinkBeer4: string = '';
-  private stress: string = '';
-  private interSmoke: string;
-  private interDrinkBeer: string;
-  private interStress: string;
-  private recoSmoke: string;
-  private recoDrinkBeer: string;
-  private recoStress: string;
-  private jornada: any;
-  private idPar: any;
-  private intervencion: any;
+  public questions: object;
+  public infoInter: object;
+  public smoke: string = '';
+  public smoke1: string = '';
+  public smoke2: string = '';
+  public smoke3: string = '';
+  public smoke4: string = '';
+  public drinkBeer: string;
+  public drinkBeer1: string = '';
+  public drinkBeer2: string = '';
+  public drinkBeer3: string = '';
+  public drinkBeer4: string = '';
+  public stress: string = '';
+  public interSmoke: string;
+  public interDrinkBeer: string;
+  public interStress: string;
+  public recoSmoke: string;
+  public recoDrinkBeer: string;
+  public recoStress: string;
+  public jornada: any;
+  public idPar: any;
+  public intervencion: any;
 
   constructor(private service: InterpretationService,
               private store:Store<any>,
@@ -50,8 +51,12 @@ export class ConductasComponent implements OnInit {
     this.service.getQuestions('riesgo').subscribe(
       data => {
       this.questions = data.json();
-      console.log(this.questions);
-    })
+    });
+
+    this.service.getInfoInterp('riesgo').subscribe(
+      data => {
+      this.infoInter = data.json();
+    });
   }
 
   onChangeInfoSmoke(deviceValue) {
@@ -73,28 +78,28 @@ export class ConductasComponent implements OnInit {
       }
     }
     if (cont>=1 && cont<=5){
-      this.interSmoke = 'Dependencia leve';
-      this.recoSmoke = '';
+      this.interSmoke = this.infoInter[1].categoria;
+      this.recoSmoke = this.infoInter[1].recomendacion;
     } else if (cont>=6 && cont<=10){
-      this.interSmoke = 'Dependencia moderada';
-      this.recoSmoke = '';
+      this.interSmoke = this.infoInter[2].categoria;
+      this.recoSmoke = this.infoInter[2].recomendacion;
     } else if (cont>=11){
-      this.interSmoke = 'Dependencia alta';
-      this.recoSmoke = '';
+      this.interSmoke = this.infoInter[3].categoria;
+      this.recoSmoke = this.infoInter[3].recomendacion;
     }
 
   }
 
   onChangeSmoke(value) {
     if(value === 'No') {
-      this.interSmoke = 'No fuma';
-      this.recoSmoke = '';
+      this.interSmoke = this.infoInter[0].categoria;
+      this.recoSmoke = this.infoInter[0].recomendacion;
     }
   }
   onChangeDrinkBeer(value) {
     if(value === 'No') {
-      this.interDrinkBeer = 'Abstemio';
-      this.recoDrinkBeer = '';
+      this.interDrinkBeer = this.infoInter[4].categoria;
+      this.recoDrinkBeer = this.infoInter[4].recomendacion;
     }
   }
 
@@ -111,55 +116,55 @@ export class ConductasComponent implements OnInit {
       }
     }
     if (cont>=0 && cont<=1){
-      this.interDrinkBeer = 'Bebedor social';
-      this.recoDrinkBeer = '';
+      this.interDrinkBeer = this.infoInter[5].categoria;
+      this.recoDrinkBeer = this.infoInter[5].recomendacion;
     } else if (cont===2){
-      this.interDrinkBeer = 'Consumo de riesgo';
-      this.recoDrinkBeer = '';
+      this.interDrinkBeer = this.infoInter[6].categoria;
+      this.recoDrinkBeer = this.infoInter[6].recomendacion;
     } else if (cont===3){
-      this.interDrinkBeer = 'Consumo perjudicial';
-      this.recoDrinkBeer = '';
+      this.interDrinkBeer = this.infoInter[7].categoria;
+      this.recoDrinkBeer = this.infoInter[7].recomendacion;
     } else if (cont===4){
-      this.interDrinkBeer = 'Dependencia alcohólica';
-      this.recoDrinkBeer = '';
+      this.interDrinkBeer = this.infoInter[8].categoria;
+      this.recoDrinkBeer = this.infoInter[8].recomendacion;
     }
   }
   onChangeInfoStress(value) {
     if (value === 'Siempre'){
-      this.interStress = 'Control adecuado';
-      this.recoStress = '';
+      this.interStress = this.infoInter[9].categoria;
+      this.recoStress = this.infoInter[9].recomendacion;
     } else if (value === 'Con alguna frecuencia'){
-      this.interStress = 'Control  regular';
-      this.recoStress = '';
+      this.interStress = this.infoInter[10].categoria;
+      this.recoStress = this.infoInter[10].recomendacion;
     } else {
-      this.interStress = 'Control Inadecuado';
-      this.recoStress = '';
+      this.interStress = this.infoInter[11].categoria;
+      this.recoStress = this.infoInter[11].recomendacion;
     }
   }
 
   increPuntaje() {
     let puntaje = 0;
-    if(this.interSmoke === 'No fuma') {
+    if(this.interSmoke === this.infoInter[0].categoria) {
       puntaje += 15;
-    } else if (this.interSmoke === 'Dependencia leve') {
+    } else if (this.interSmoke === this.infoInter[1].categoria) {
       puntaje += 10;
-    } else if (this.interSmoke === 'Dependencia moderada') {
+    } else if (this.interSmoke === this.infoInter[2].categoria) {
       puntaje += 5;
     }
     
-    if (this.interDrinkBeer === 'Abstemio') {
+    if (this.interDrinkBeer === this.infoInter[4].categoria) {
       puntaje += 10;
-    } else if (this.interDrinkBeer === 'Bebedor social') {
+    } else if (this.interDrinkBeer === this.infoInter[5].categoria) {
       puntaje += 7.5;
-    } else if (this.interDrinkBeer === 'Consumo de riesgo') {
+    } else if (this.interDrinkBeer === this.infoInter[6].categoria) {
       puntaje += 5;
-    } else if (this.interDrinkBeer === 'Consumo perjudicial') {
+    } else if (this.interDrinkBeer === this.infoInter[7].categoria) {
       puntaje += 2.5;
     }
 
-    if (this.interStress === 'Control adecuado') {
+    if (this.interStress === this.infoInter[9].categoria) {
       puntaje += 10;
-    } else if (this.interStress === 'Control  regular') {
+    } else if (this.interStress === this.infoInter[10].categoria) {
       puntaje += 5;
     }
 

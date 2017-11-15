@@ -2,8 +2,8 @@
   <app-encuestador></app-encuestador>
 </div>
 <div *ngIf="coordinador">
-  <app-coordinador></app-coordinador>
+  <app-coordinador [name]="name"></app-coordinador>
 </div>
 <div *ngIf="administrador">
-  <app-administrador></app-administrador>
+  <app-administrador [name]="name"></app-administrador>
 </div>

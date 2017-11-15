@@ -1,6 +1,6 @@
 import { UserService } from './../../../servicios/users/user.service';
 import { Component, OnInit, Inject } from '@angular/core';
-import { MdDialogRef, MD_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
   selector: 'app-new-user',
@@ -14,15 +14,15 @@ export class NewUserComponent {
   public username: string;
   public password: string;
   public type: string;
-  types = [
+  roles = [
     {name: 'encuestador'},
     {name: 'coordinador'},
     {name: 'administrador'}
   ];
 
   constructor(public userService: UserService,
-              public dialogRef: MdDialogRef<NewUserComponent>,
-              @Inject(MD_DIALOG_DATA) public data: any) { }
+              public dialogRef: MatDialogRef<NewUserComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   save() {
     let user: any = new Object;

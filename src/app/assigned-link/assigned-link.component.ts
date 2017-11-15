@@ -1,5 +1,6 @@
 import { User } from './../data/user';
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-assigned-link',
@@ -7,11 +8,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./assigned-link.component.css']
 })
 export class AssignedLinkComponent implements OnInit {
-  user: User = JSON.parse(localStorage.getItem('currentUser')) || [];
+  user: any = JSON.parse(localStorage.getItem('currentUser')) || [];
   encuestador: string;
   coordinador: string;
   administrador: string;
-  constructor() { 
+  name: string;
+
+  constructor(public router: Router) {
+    this.name = this.user.name;
     if (this.user.type === "encuestador") {
       this.encuestador = this.user.type;
     } else if (this.user.type === "coordinador") {

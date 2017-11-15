@@ -1,11 +1,11 @@
-<h3>Variables Fisiológicas</h3>
 <div class="col-sm-5">
+  <h3>Variables Fisiológicas</h3>
 <form *ngIf="questions" class="form-socio" name="form" (ngSubmit)="f.form.valid && saveData()" #f="ngForm" novalidate>
   <div class="buttonMargin">
     <label for="birthdate">Fecha de nacimiento</label>
-    <md-form-field class="example-full-width">
-      <input mdInput type="date" [(ngModel)]="date" name="colaborationEntity">
-    </md-form-field>
+    <mat-form-field class="example-full-width">
+      <input matInput type="date" [(ngModel)]="date" name="colaborationEntity">
+    </mat-form-field>
   </div>
   <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !edad.valid }">
     <label for="age">{{questions[0].question}}</label>
@@ -102,14 +102,14 @@
 </div>
 <div class="col-sm-4 card">
   <img src="../../../assets/estaciones/Spanish-Multicultural-006.jpg" class="img-responsive img-thumbnail" alt="Responsive image">
-<md-card class="example-card">
-  <md-card-header>
-    <md-card-title>
+<mat-card class="example-card">
+  <mat-card-header>
+    <mat-card-title>
       <h4>Interpretaciones</h4>
-    </md-card-title>
-    <md-card-subtitle>Variables Fisiológicas</md-card-subtitle>
-  </md-card-header>
-  <md-card-content>
+    </mat-card-title>
+    <mat-card-subtitle>Variables Fisiológicas</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
     <p>
      <strong>ICM: </strong> {{interIcm}}
     </p>
@@ -125,6 +125,6 @@
     <p>
       <strong>Categoría FC: </strong> {{interCardiaca}}
     </p>
-  </md-card-content>
-</md-card>
+  </mat-card-content>
+</mat-card>
 </div>

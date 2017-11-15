@@ -1,10 +1,10 @@
 import { JornadaService } from './../../../servicios/jornadas/jornada.service';
-import { MdDialogRef, MD_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Component, OnInit } from '@angular/core';
 import { Inject } from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs/Observable';
-import {MdOptionSelectionChange} from '@angular/material';
+import {MatOptionSelectionChange} from '@angular/material';
 
 @Component({
   selector: 'app-update-jornada',
@@ -35,8 +35,8 @@ export class UpdateJornadaComponent implements OnInit {
   types = [{name: 'Intramural'}, {name: 'Extramural'}];
 
   constructor(public jornadaService: JornadaService,
-              public dialogRef: MdDialogRef<UpdateJornadaComponent>,
-              @Inject(MD_DIALOG_DATA) public data: any) { }
+              public dialogRef: MatDialogRef<UpdateJornadaComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit() {
     console.log(this.data);
@@ -79,7 +79,7 @@ export class UpdateJornadaComponent implements OnInit {
     .map(val => val ? this.filterCity(val) : this.cities.slice());
   }
 
-  infoDep(evt: MdOptionSelectionChange, depar) {
+  infoDep(evt: MatOptionSelectionChange, depar) {
     if(evt.source.selected !== false){
       this.cityControl.enable();
       this.getcities(depar);
@@ -97,7 +97,6 @@ export class UpdateJornadaComponent implements OnInit {
       this.place = this.data.place;
       this.bioquimica = this.data.bioquimica;
       this.state = this.data.state;
-      console.log(this.state);
   }
 
   update() {

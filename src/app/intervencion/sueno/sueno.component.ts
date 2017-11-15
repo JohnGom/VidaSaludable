@@ -11,13 +11,14 @@ import { Store } from '@ngrx/store';
 })
 export class SuenoComponent implements OnInit {
 
-  private questions: object;
+  public questions: object;
+  public infoInter: object;
   infosueno: number;
-  private interSueno: string;
-  private recoSueno: string;
-  private jornada: any;
-  private idPar: any;
-  private intervencion: any;
+  public interSueno: string;
+  public recoSueno: string;
+  public jornada: any;
+  public idPar: any;
+  public intervencion: any;
 
   constructor(private service: InterpretationService,
               private store:Store<any>,
@@ -37,27 +38,30 @@ export class SuenoComponent implements OnInit {
     this.service.getQuestions('sueno').subscribe(
       data => {
       this.questions = data.json();
-      console.log(this.questions);
-    })
+    });
+    this.service.getInfoInterp('sueno').subscribe(
+      data => {
+      this.infoInter = data.json();
+    });
   }
   onChangeInfoSueno(value) {
     if (value < 6){
-      this.interSueno = 'Anormal. Poco sueño';
-      this.recoSueno = '';
+      this.interSueno = this.infoInter[0].categoria;
+      this.recoSueno = this.infoInter[0].recomendacion;
     } else if (value>=6 && value<=8){
-      this.interSueno = 'Normal';
-      this.recoSueno = '';
+      this.interSueno = this.infoInter[1].categoria;
+      this.recoSueno = this.infoInter[1].recomendacion;
     } else if (value>8){
-      this.interSueno = 'Anormal. Excesivo sueño';
-      this.recoSueno = '';
+      this.interSueno = this.infoInter[2].categoria;
+      this.recoSueno = this.infoInter[2].recomendacion;
     }
   }
 
   increPuntaje() {
     let puntaje = 0;
-    if(this.interSueno === 'Normal') {
+    if(this.interSueno === this.infoInter[1].categoria) {
       puntaje += 10;
-    } else if (this.interSueno === 'Anormal. Excesivo sueño') {
+    } else if (this.interSueno === this.infoInter[2].categoria) {
       puntaje += 5;
     }
 

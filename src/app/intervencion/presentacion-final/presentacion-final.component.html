@@ -1,6 +1,7 @@
 <h1>Interpretación Final</h1>
 <div class="container tablamargen" class="col-sm-8">
-<table class="table table-bordered tablamargen">
+<div id="imprimir">
+<table id="tabla" class="table table-bordered tablamargen">
   <thead>
     <tr>
       <th>Nombre</th>
@@ -20,10 +21,10 @@
 </table>
 <div class="col-sm-7">
 <div class="form-group">
-  <md-card>
+  <mat-card>
   <label for="obser">Interpretación final: Nivel de riesgo debido al estilo de vida: </label>
   <p>{{result}}</p>
-  </md-card>
+  </mat-card>
 </div>
 <div class="form-group">
   <label for="obser">Observaciones: </label>
@@ -31,21 +32,25 @@
 </div>
 <div class="buttonMargin">
     <label for="birthdate">Fecha de Seguimiento</label>
-    <md-form-field class="example-full-width">
-      <input mdInput type="date" [(ngModel)]="fechaSegui" name="colaborationEntity">
-    </md-form-field>
+    <mat-form-field class="example-full-width">
+      <input matInput type="date" [(ngModel)]="fechaSegui" name="colaborationEntity">
+    </mat-form-field>
   </div>
 <div class="buttonMargin">
     <label for="birthdate">Fecha de la Intervención</label>
-    <md-form-field class="example-full-width">
-      <input mdInput type="date" [(ngModel)]="fechaInter" name="colaborationEntity">
-    </md-form-field>
-  </div>
-
-  <nav aria-label="controles">
-  <ul class="pager">
-    <li><a class="btn btn-default" (click)=saveData()>Terminar</a></li>
-  </ul>
-</nav>
+    <mat-form-field class="example-full-width">
+      <input matInput type="date" [(ngModel)]="fechaInter" name="colaborationEntity">
+    </mat-form-field>
+</div>
+<nav aria-label="controles">
+    <ul class="pager">
+      <li><button class="btn btn-default btn-sm" (click)="sendEmail('imprimir')">
+      <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></button></li>
+      <li><button class="btn btn-default btn-sm" (click)="printDiv('imprimir')">
+      <span class="glyphicon glyphicon-print" aria-hidden="true"></span></button></li>
+      <li><a class="btn btn-default" (click)=saveData()>Terminar</a></li>
+    </ul>
+  </nav>
+</div>
 </div>
 </div>

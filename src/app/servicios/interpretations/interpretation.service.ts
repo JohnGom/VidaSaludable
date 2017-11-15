@@ -10,6 +10,12 @@ export class InterpretationService {
     let URL = `http://localhost:8080/jersey-starterkit/rest/interpretation/getquestions?dimension=${dimension}`;
     return this.http.get(URL)
 }
+
+public getInfoInterp(dimension: string) {
+    let URL = `http://localhost:8080/jersey-starterkit/rest/interpretation/infoInterpretaciones?dimension=${dimension}`;
+    return this.http.get(URL)
+}
+
 public getInterpretations(inter: number) {
     let URL = `http://localhost:8080/jersey-starterkit/rest/interpretation/getInterpretation?intervencion=${inter}`;
     return this.http.get(URL)
@@ -47,6 +53,13 @@ public insertIntervencion(intervencion: Object) {
     let url = 'http://localhost:8080/jersey-starterkit/rest/client/saveintervencion';
     let options = new RequestOptions({ headers: headers });
         return this.http.post(url, intervencion, options);
+}
+
+public sendEmail(interven: Object) {
+    let headers = new Headers({ 'Content-Type': 'application/json;charset=UTF-8' });
+    let url = 'http://localhost:8080/jersey-starterkit/rest/WebService/sendEmail';
+    let options = new RequestOptions({ headers: headers });
+        return this.http.post(url, interven, options);
 }
 
 }

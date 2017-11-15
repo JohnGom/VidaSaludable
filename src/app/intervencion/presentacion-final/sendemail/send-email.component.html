@@ -1,0 +1,9 @@
+<form class="form">
+    <h3>Enviar a Email</h3>
+  <div>
+    <mat-form-field class="example-full-width">
+        <input matInput [(ngModel)]="correo" name="correo" placeholder="Email" >
+    </mat-form-field>
+  </div>
+  <button class="btn btn btn-success btn-block" (click)="save()">Enviar</button>
+</form>

@@ -1,7 +1,7 @@
+import { INTER_FISIOLOGICA } from './../../reducer/reducers';
 import { ShareDataService } from './../../servicios/sharedata/share-data.service';
 import { InterpretationService } from './../../servicios/interpretations/interpretation.service';
 import { Component, OnInit } from '@angular/core';
-import { DatePickerOptions, DateModel } from 'ng2-datepicker';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 
@@ -24,15 +24,15 @@ export class FisiologicasComponent {
   frecardiaca: number;
   sickness:string;
   medcoles: string;
-  options: DatePickerOptions;
-  private interAbdomen;
-  private interIcm;
-  private interCardiaca;
-  private interTension;
-  private jornada: any;
-  private idPar: any;
-  private intervencion: any;
-  private questions: object;
+  public interAbdomen;
+  public interIcm;
+  public interCardiaca;
+  public interTension;
+  public jornada: any;
+  public idPar: any;
+  public intervencion: any;
+  public questions: object;
+  public stateBio: boolean;
  
   constructor(private service: InterpretationService,
               private store:Store<any>,
@@ -44,7 +44,9 @@ export class FisiologicasComponent {
       this.idPar = result.idpar;
       this.intervencion = result.inter;
     });
-    this.options = new DatePickerOptions();
+    this.store.select('bio').subscribe((result) => {
+      this.stateBio = result;
+    });
   }
 
   ngOnInit() {
@@ -139,6 +141,14 @@ export class FisiologicasComponent {
   }
 
   saveData(){
+    let interFisio: any = new Object;
+    interFisio.icm = this.icminfo;
+    interFisio.abdomen = this.perabdomen;
+    interFisio.tencion = this.tenciona;
+    interFisio.sick = this.sickness;
+    interFisio.medicamentos = this.medcoles;
+    this.store.dispatch({ type: INTER_FISIOLOGICA, payload: interFisio });
+
     let infoFisiologico = [];
     infoFisiologico.push({ question: this.questions[0].id, intervened: this.idPar, jornada: this.jornada, respuesta: this.age });
     infoFisiologico.push({ question: this.questions[1].id, intervened: this.idPar, jornada: this.jornada, respuesta: this.weight });
@@ -160,7 +170,11 @@ export class FisiologicasComponent {
     infoInterp.push({ intervencion: this.intervencion, participante: this.idPar, nombre: 'Categoría FC', resultado: this.interCardiaca, recomendacion: '', dimension: 'Fisiológica' });
     this.service.insertInterpretacion(infoInterp).subscribe((result: any) => {
        if(result.text() == 'ok') {
-        this.router.navigate(['/salud/jorActiva/control']);
+         if (this.stateBio === true) {
+           this.router.navigate(['/salud/jorActiva/bio']);
+         } else {
+           this.router.navigate(['/salud/jorActiva/control']);
+         }
       }
     });
   }

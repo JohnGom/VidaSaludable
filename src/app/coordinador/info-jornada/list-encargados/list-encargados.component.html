@@ -1,14 +1,14 @@
 <form class="form">
   <h2>Seleccionar Encuestadores</h2>
-<md-selection-list #users>
-  <md-list-option *ngFor="let user of interviewers"
+<mat-selection-list #users>
+  <mat-list-option *ngFor="let user of interviewers"
   (click)="onSelectOptionChange(user)"
   [selected]="user.state" name="checked">
     {{user.name}}
-  </md-list-option>
-</md-selection-list>
+  </mat-list-option>
+</mat-selection-list>
 </form>
 
 <div class="text-center buttonMargin">
-  <button md-raised-button color="primary" (click)="save()">Guardar</button>
+  <button mat-raised-button color="primary" (click)="save()">Guardar</button>
 </div>

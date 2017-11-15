@@ -1,11 +1,11 @@
 import { UserService } from './../../../servicios/users/user.service';
 import { JornadaService } from './../../../servicios/jornadas/jornada.service';
-import { MdDialogRef, MD_DIALOG_DATA } from '@angular/material';
-import { Component, OnInit } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { Component, OnInit, NgModule } from '@angular/core';
 import { Inject } from '@angular/core';
-import {Observable} from 'rxjs/Observable';
-import {FormControl} from '@angular/forms';
-import {MdOptionSelectionChange} from '@angular/material';
+import { Observable } from 'rxjs/Observable';
+import { FormControl } from '@angular/forms';
+import { MatOptionSelectionChange, DateAdapter, NativeDateAdapter } from '@angular/material';
 
 class Departamento {
   departamentoId: number;
@@ -17,6 +17,7 @@ class Departamento {
   templateUrl: './new-jornada.component.html',
   styleUrls: ['./new-jornada.component.css']
 })
+
 export class NewJornadaComponent implements OnInit {
   
   departmentControl: FormControl;
@@ -38,8 +39,10 @@ export class NewJornadaComponent implements OnInit {
   states = [{name: 'Planeada'}, {name: 'Ejecutada'}, {name: 'Cancelada'}];
   types = [{name: 'Intramural'}, {name: 'Extramural'}];
   constructor(public jornadaService: JornadaService,
-              public dialogRef: MdDialogRef<NewJornadaComponent>,
-              @Inject(MD_DIALOG_DATA) public data: any) {
+              public dialogRef: MatDialogRef<NewJornadaComponent>,
+              dateAdapter: DateAdapter<NativeDateAdapter>,
+              @Inject(MAT_DIALOG_DATA) public data: any) {
+                dateAdapter.setLocale('de-DE');
                 this.departmentControl = new FormControl();
               }      
 
@@ -75,7 +78,7 @@ export class NewJornadaComponent implements OnInit {
       .map(val => val ? this.filterCity(val) : this.cities.slice());
   }
 
-  infoDep(evt: MdOptionSelectionChange, depar) {
+  infoDep(evt: MatOptionSelectionChange, depar) {
     if(evt.source.selected !== false){
       this.cityControl.enable();
       this.getcities(depar);

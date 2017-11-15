@@ -1,6 +1,6 @@
 import { UserService } from './../../../servicios/users/user.service';
 import { Component, OnInit, Inject } from '@angular/core';
-import { MdDialogRef, MD_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
   selector: 'app-update-user',
@@ -20,8 +20,8 @@ export class UpdateUserComponent implements OnInit {
     {name: 'administrador'}
   ];
   constructor(public userService: UserService,
-              public dialogRef: MdDialogRef<UpdateUserComponent>,
-              @Inject(MD_DIALOG_DATA) public data: any) { }
+              public dialogRef: MatDialogRef<UpdateUserComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit() {
     console.log(this.data);

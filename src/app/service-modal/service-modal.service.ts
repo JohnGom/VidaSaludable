@@ -1,3 +1,4 @@
+import { SendEmailComponent } from './../intervencion/presentacion-final/sendemail/send-email.component';
 import { ListEncargadosComponent } from './../coordinador/info-jornada/list-encargados/list-encargados.component';
 import { UpdateUserComponent } from './../administrador/usuarios/update-user/update-user.component';
 import { NewUserComponent } from './../administrador/usuarios/new-user/new-user.component';
@@ -7,12 +8,12 @@ import { NewProgramComponent } from './../coordinador/info-programa/new-program/
 import { UpdateProgramComponent } from './../coordinador/info-programa/update-program/update-program.component';
 import { Observable } from 'rxjs/observable';
 import { Injectable } from '@angular/core';
-import { MdDialog, MdDialogRef, MD_DIALOG_DATA } from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 @Injectable()
 export class ServiceModalService {
 
-  constructor(public dialog: MdDialog) { }
+  constructor(public dialog: MatDialog) { }
 
   createProgram(): Observable<Object> {
     let dialogRef = this.dialog.open(NewProgramComponent);
@@ -53,6 +54,14 @@ export class ServiceModalService {
   listEncargado(user: Object): Observable<Object> {
     let dialogRef = this.dialog.open(ListEncargadosComponent, {
       data: user
+    });
+    return dialogRef.afterClosed();
+  }
+
+  SendEmail(info: object): Observable<Object> {
+    let dialogRef = this.dialog.open(SendEmailComponent,
+    {
+      data: info
     });
     return dialogRef.afterClosed();
   }

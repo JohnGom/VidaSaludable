@@ -10,10 +10,11 @@ import { Store } from '@ngrx/store';
   styleUrls: ['./nutricional.component.css']
 })
 export class NutricionalComponent implements OnInit {
-  private jornada: any;
-  private idPar: any;
-  private intervencion: any;
-  private questions: object;
+  public jornada: any;
+  public idPar: any;
+  public intervencion: any;
+  public questions: object;
+  public infoInter: object;
   fruits: number;
   vegetables: number;
   grease: string;
@@ -21,20 +22,20 @@ export class NutricionalComponent implements OnInit {
   sugar: string;
   foods: string;
   water: string
-  private interFruits: string;
-  private interVegetable: string;
-  private interGrease: string;
-  private interSal: string;
-  private interSugar: string;
-  private interFood: string;
-  private interWater: string;
-  private recoFruits: string;
-  private recoVegetable: string;
-  private recoGrease: string;
-  private recoSal: string;
-  private recoSugar: string;
-  private recoFood: string;
-  private recoWater: string;
+  public interFruits: string;
+  public interVegetable: string;
+  public interGrease: string;
+  public interSal: string;
+  public interSugar: string;
+  public interFood: string;
+  public interWater: string;
+  public recoFruits: string;
+  public recoVegetable: string;
+  public recoGrease: string;
+  public recoSal: string;
+  public recoSugar: string;
+  public recoFood: string;
+  public recoWater: string;
   
   constructor(private service: InterpretationService,
               private store:Store<any>,
@@ -54,142 +55,145 @@ export class NutricionalComponent implements OnInit {
     this.service.getQuestions('nutricional').subscribe(
       data => {
       this.questions = data.json();
-      console.log(this.questions);
-    })
+    });
+    this.service.getInfoInterp('nutricion').subscribe(
+      data => {
+      this.infoInter = data.json();
+    });
   }
 
   infoFruit(value) {
     if(value < 4) {
-      this.interFruits = 'Consumo insuficiente de fruta';
-      this.recoFruits = '';
+      this.interFruits = this.infoInter[0].categoria;
+      this.recoFruits = this.infoInter[0].recomendacion;
     } else if(value >=4 && value <= 6) {
-      this.interFruits = 'Consumo adecuado de fruta';
-      this.recoFruits = '';
+      this.interFruits = this.infoInter[1].categoria;
+      this.recoFruits = this.infoInter[1].recomendacion;
     } else if(value > 6) {
-      this.interFruits = 'Consumo excesivo de fruta';
-      this.recoFruits = '';
+      this.interFruits = this.infoInter[2].categoria;
+      this.recoFruits = this.infoInter[2].recomendacion;
     } 
   }
 
   infoVegetables(value) {
      if(value < 4) {
-      this.interVegetable = 'Consumo insuficiente de verduras';
-      this.recoVegetable = '';
+      this.interVegetable = this.infoInter[3].categoria;
+      this.recoVegetable = this.infoInter[3].recomendacion;
     } else if(value >=4 && value <= 6) {
-      this.interVegetable = 'Consumo adecuado de verduras';
-      this.recoVegetable = '';
+      this.interVegetable = this.infoInter[4].categoria;
+      this.recoVegetable = this.infoInter[4].recomendacion;
     } else if(value > 6) {
-      this.interVegetable = 'Consumo excesivo de verduras';
-      this.recoVegetable = '';
+      this.interVegetable = this.infoInter[5].categoria;
+      this.recoVegetable = this.infoInter[5].recomendacion;
     } 
   }
 
   onChangeInfoGrease(value) {
      if (value === 'Siempre'){
-      this.interGrease = 'Control adecuado de grasas';
-      this.recoVegetable = '';
+      this.interGrease = this.infoInter[6].categoria;
+      this.recoGrease = this.infoInter[6].recomendacion;
     } else if (value === 'Con alguna frecuencia'){
-      this.interGrease = 'Control regular de grasas';
-      this.recoVegetable = '';
+      this.interGrease = this.infoInter[7].categoria;
+      this.recoGrease = this.infoInter[7].recomendacion;
     } else {
-      this.interGrease = 'Control Inadecuado de grasas';
-      this.recoVegetable = '';
+      this.interGrease = this.infoInter[8].categoria;
+      this.recoGrease = this.infoInter[8].recomendacion;
     }
   }
 
   onChangeInfoSal(value) {
      if (value === 'Siempre'){
-      this.interSal = 'Control adecuado del consumo de sal';
-      this.recoSal= '';
+      this.interSal = this.infoInter[9].categoria;
+      this.recoSal= this.infoInter[9].recomendacion;
     } else if (value === 'Con alguna frecuencia'){
-      this.interSal = 'Control regular del consumo de sal';
-      this.recoSal= '';
+      this.interSal = this.infoInter[10].categoria;
+      this.recoSal= this.infoInter[10].recomendacion;
     } else {
-      this.interSal = 'Control Inadecuado de consumo de sal';
-      this.recoSal= '';
+      this.interSal = this.infoInter[11].categoria;
+      this.recoSal= this.infoInter[11].recomendacion;
     }
   }
 
   onChangeInfoSugar(value) {
     if (value === 'Siempre'){
-      this.interSugar = 'Control adecuado del consumo de azúcar';
-      this.recoSugar= '';
+      this.interSugar = this.infoInter[12].categoria;
+      this.recoSugar= this.infoInter[12].recomendacion;
     } else if (value === 'Con alguna frecuencia'){
-      this.interSugar = 'Control regular del consumo de azúcar';
-      this.recoSugar= '';
+      this.interSugar = this.infoInter[13].categoria;
+      this.recoSugar= this.infoInter[13].recomendacion;
     } else {
-      this.interSugar = 'Control Inadecuado de consumo de azúcar';
-      this.recoSugar= '';
+      this.interSugar = this.infoInter[14].categoria;
+      this.recoSugar= this.infoInter[14].recomendacion;
     }
   }
 
   onChangeInfoFoods(value) {
     if (value === 'Siempre'){
-      this.interFood = 'Control adecuado de número de comidas';
-      this.recoFood = '';
+      this.interFood = this.infoInter[15].categoria;
+      this.recoFood = this.infoInter[15].recomendacion;
     } else if (value === 'Con alguna frecuencia'){
-      this.interFood = 'Control regular de número de comidas';
-      this.recoFood = '';
+      this.interFood = this.infoInter[16].categoria;
+      this.recoFood = this.infoInter[16].recomendacion;
     } else {
-      this.interFood = 'Control Inadecuado de Número de comidas';
-      this.recoFood = '';
+      this.interFood = this.infoInter[17].categoria;
+      this.recoFood = this.infoInter[17].recomendacion;
     }
   }
 
   onChangeInfoWater(value) {
     if (value === 'Siempre'){
-      this.interWater = 'Control adecuado de agua';
-      this.recoWater = '';
+      this.interWater = this.infoInter[18].categoria;
+      this.recoWater = this.infoInter[18].recomendacion;
     } else if (value === 'Con alguna frecuencia'){
-      this.interWater = 'Control regular de agua';
-      this.recoWater = '';
+      this.interWater = this.infoInter[19].categoria;
+      this.recoWater = this.infoInter[19].recomendacion;
     } else {
-      this.interWater = 'Control Inadecuado de agua';
-      this.recoWater = '';
+      this.interWater = this.infoInter[20].categoria;
+      this.recoWater = this.infoInter[20].recomendacion;
     }
   }
 
   increPuntaje() {
     let puntaje = 0;
-    if(this.interFruits === 'Consumo adecuado de fruta') {
+    if(this.interFruits === this.infoInter[1].categoria) {
       puntaje += 3;
-    } else if (this.interFruits === 'Consumo excesivo de fruta') {
+    } else if (this.interFruits === this.infoInter[2].categoria) {
       puntaje += 1.5;
     } 
     
-    if (this.interVegetable === 'Consumo adecuado de verduras') {
+    if (this.interVegetable === this.infoInter[4].categoria) {
       puntaje += 3;
-    } else if (this.interVegetable === 'Consumo excesivo de verduras') {
+    } else if (this.interVegetable === this.infoInter[5].categoria) {
       puntaje += 1.5;
     }
 
-    if (this.interGrease === 'Control adecuado de grasas') {
+    if (this.interGrease === this.infoInter[6].categoria) {
       puntaje += 3;
-    } else if (this.interGrease === 'Control regular de grasas') {
+    } else if (this.interGrease === this.infoInter[7].categoria) {
       puntaje += 1.5;
     }
 
-    if (this.interSal === 'Control adecuado del consumo de sal') {
+    if (this.interSal === this.infoInter[9].categoria) {
       puntaje += 3;
-    } else if (this.interSal === 'Control regular del consumo de sal') {
+    } else if (this.interSal === this.infoInter[10].categoria) {
       puntaje += 1.5;
     }
 
-    if (this.interSugar === 'Control adecuado del consumo de azúcar') {
+    if (this.interSugar === this.infoInter[12].categoria) {
       puntaje += 3;
-    } else if (this.interSugar === 'Control regular del consumo de azúcar') {
+    } else if (this.interSugar === this.infoInter[13].categoria) {
       puntaje += 1.5;
     }
 
-    if (this.interFood === 'Control adecuado de número de comidas') {
+    if (this.interFood === this.infoInter[15].categoria) {
       puntaje += 2;
-    } else if (this.interFood === 'Control regular de número de comidas') {
+    } else if (this.interFood === this.infoInter[16].categoria) {
       puntaje += 1;
     }
 
-    if (this.interWater === 'Control adecuado de agua') {
+    if (this.interWater === this.infoInter[18].categoria) {
       puntaje += 3;
-    } else if (this.interWater = 'Control regular de agua') {
+    } else if (this.interWater = this.infoInter[19].categoria) {
       puntaje += 1.5;
     }
 

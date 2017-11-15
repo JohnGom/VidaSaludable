@@ -1,6 +1,6 @@
 import { JornadaService } from './../../../servicios/jornadas/jornada.service';
 import { UserService } from './../../../servicios/users/user.service';
-import { MdDialogRef, MD_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Component, OnInit } from '@angular/core';
 import { Inject } from '@angular/core';
 import { Response } from '@angular/http';
@@ -14,10 +14,10 @@ import {Observable} from 'rxjs/Observable';
 export class ListEncargadosComponent implements OnInit {
   public interviewers = [];
   public users;
-  constructor(public dialogRef: MdDialogRef<ListEncargadosComponent>,
+  constructor(public dialogRef: MatDialogRef<ListEncargadosComponent>,
               public serviceUser: UserService,
               public jornadaServ: JornadaService,
-              @Inject(MD_DIALOG_DATA) public data: any) {
+              @Inject(MAT_DIALOG_DATA) public data: any) {
               }
 
   ngOnInit() {

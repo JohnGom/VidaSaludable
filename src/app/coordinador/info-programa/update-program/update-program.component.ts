@@ -1,4 +1,4 @@
-import { MdDialogRef, MD_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ProgramService } from './../../../servicios/programas/program.service';
 import { Component, OnInit } from '@angular/core';
 import { Inject } from '@angular/core';
@@ -15,11 +15,10 @@ export class UpdateProgramComponent implements OnInit {
   public description: string;
   public entity: string;
   constructor(public programService: ProgramService,
-              public dialogRef: MdDialogRef<UpdateProgramComponent>,
-              @Inject(MD_DIALOG_DATA) public data: any) { }
+              public dialogRef: MatDialogRef<UpdateProgramComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit() {
-    console.log(this.data);
     this.fillProgram();
   }
 
@@ -39,7 +38,7 @@ export class UpdateProgramComponent implements OnInit {
     this.programService.updateProgram(program).subscribe((result: any) => {
       console.log(result);
       if (result.text() == 'ok') {
-          this.dialogRef.close({"updated": true});
+          this.dialogRef.close({"updated": true });
        } else {
           this.dialogRef.close({"updated": false});
        } 

@@ -1,19 +1,19 @@
 <form class="form">
     <h2>Programa</h2>
   <div>
-    <md-form-field class="example-full-width">
-        <input mdInput [(ngModel)]="name" name="name" placeholder="Nombre" >
-    </md-form-field>
+    <mat-form-field class="example-full-width">
+        <input matInput [(ngModel)]="name" name="name" placeholder="Nombre" >
+    </mat-form-field>
   </div>
   <div>
-    <md-form-field class="example-full-width">
-        <input mdInput [(ngModel)]="description" name="description" placeholder="Descripción">
-    </md-form-field>
+    <mat-form-field class="example-full-width">
+        <input matInput [(ngModel)]="description" name="description" placeholder="Descripción">
+    </mat-form-field>
   </div>
   <div>
-    <md-form-field class="example-full-width">
-        <input mdInput [(ngModel)]="entity" name="entity" placeholder="Entidad">
-    </md-form-field>
+    <mat-form-field class="example-full-width">
+        <input matInput [(ngModel)]="entity" name="entity" placeholder="Entidad">
+    </mat-form-field>
   </div>
   <button class="btn btn-info btn-block" (click)="update()">Modificar Programa</button>
 </form>

@@ -1,3 +1,4 @@
+import { InterpretationService } from './../servicios/interpretations/interpretation.service';
 import { AuthserviceService } from './../servicios/authservice.service';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -18,7 +19,8 @@ export class EncuestadorComponent implements OnInit {
   slideNoTransition;
   extraSlides;
   constructor(private service: AuthserviceService,
-              private router: Router) { 
+              public router: Router,
+              public route: ActivatedRoute) { 
     if(this.router.routerState.snapshot.url='/salud'){
       this.validar === true;
     } else {
@@ -33,6 +35,8 @@ export class EncuestadorComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.router.url);
+    console.log(this.route);
     
   }
 
@@ -41,8 +45,8 @@ export class EncuestadorComponent implements OnInit {
   }
 
   selectTab(index: number, id: number): void {
-  this.indexSelected = index;
-  this.idprogram = id;
-}
+    this.indexSelected = index;
+    this.idprogram = id;
+  }
 
 }

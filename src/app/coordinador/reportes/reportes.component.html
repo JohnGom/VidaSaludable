@@ -1,21 +1,102 @@
-<div class="container">
+<div class="container esp">
   <h1>Reportes</h1>
-<table class="table table-inverse">
-<tr>
-  <th>Participante</th>
-  <th>Genero</th>
-  <th>Resultado</th>
-  <th>Fecha</th>
-  <th>Observaciones</th>
-  <th>Fecha seguimiento</th>
-</tr>
-<tr *ngFor="let inter of intervenciones">
-  <td>{{inter.cliente.firstname}} {{inter.cliente.lastname}}</td>
-  <td>{{inter.cliente.gender}}</td>
-  <td>{{inter.resultado}}</td>
-  <td>{{inter.fechaInter}}</td>
-  <td>{{inter.observacion}}</td>
-  <td>{{inter.fechaSegui}}</td>
-</tr>
-</table>
+  <div id="imprimir" class="container-table mat-elevation-z8">
+  <div class="example-header">
+    <mat-form-field floatPlaceholder="never">
+      <input matInput #filter placeholder="Search" (keyup)="filterKeyUp()">
+    </mat-form-field>
+  </div>
+  <mat-table #table [dataSource]="dataSource" matSort>
+
+    <ng-container matColumnDef="firstname">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.cliente.firstname}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="lastname">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Apellido </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.cliente.lastname}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="resultado">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Resultado </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.resultado}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="fecha">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Edad </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.detalles[0].respuesta}} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+  <mat-paginator #paginator
+                [length]="dataPeople?.data?.length"
+                [pageIndex]="0"
+                [pageSize]="5"
+                [pageSizeOptions]="[5, 10, 25, 100]">
+  </mat-paginator>
+</div>
+</div>
+<div class="container esp">
+<div class="col-sm-2 list-group">
+  <button type="button" (click)="infoSmoke()" class="list-group-item">Conducta de riesgo, Fumar</button>
+  <button type="button" (click)="infoDrink()" class="list-group-item">Conducta de Riesgo, Alcohol</button>
+  <button type="button" (click)="infoStress()" class="list-group-item">Conducta de Riesgo, Estrés</button>
+  <button type="button" (click)="infoExercise()" class="list-group-item">Ejercicio</button>
+  <button type="button" (click)="infoFruit()" class="list-group-item">Nutricion, Frutas</button>
+  <button type="button" (click)="infoVegetables()" class="list-group-item">Nutricion, Verduras</button>
+  <button type="button" (click)="InfoGrease()" class="list-group-item">Nutricion, Grasas</button>
+  <button type="button" (click)="InfoSal()" class="list-group-item">Nutricion, Sal</button>
+  <button type="button" (click)="InfoSugar()" class="list-group-item">Nutricion, Azúcar</button>
+  <button type="button" (click)="InfoFoods()" class="list-group-item">Nutricion, Comidas diarias</button>
+  <button type="button" (click)="InfoWater()" class="list-group-item">Nutricion, Agua</button>
+  <button type="button" (click)="InfoSueno()" class="list-group-item">Sueño</button>
+  <button type="button" (click)="InfoEspiritual()" class="list-group-item">Espiritualidad</button>
+  <button type="button" (click)="InfoFinal()" class="list-group-item">Resumen Final</button>
+</div>
+<div class="col-sm-10">
+<div *ngIf="estado === false" style="display: block">
+  <canvas baseChart
+    [data]="doughnutChartData"
+    [labels]="doughnutChartLabels"
+    [chartType]="doughnutChartType">
+  </canvas>
+</div>
+<div *ngIf="estado === true">
+  <table class="table table-inverse">
+  <tr>
+    <th>Categoría</th>
+    <th>Hombre Joven (18-26)</th>
+    <th>Mujer Joven (18-26)</th>
+    <th>Hombre Adulto (27-54)</th>
+    <th>Mujer Adulta (27-54)</th>
+    <th>Hombre Mayor (> 54)</th>
+    <th>Mujer Mayor (> 54)</th>
+  </tr>
+  <tr *ngFor="let report of reports">
+    <td>{{report.categoria}}</td>
+    <td>{{report.manYoung}}</td>
+    <td>{{report.womanYoung}}</td>
+    <td>{{report.manAdult}}</td>
+    <td>{{report.womanAdult}}</td>
+    <td>{{report.manOld}}</td>
+    <td>{{report.womanOld}}</td>
+  </tr>
+  </table>
+  <div style="display: block">
+      <canvas baseChart
+        [datasets]="barChartData"
+        [labels]="barChartLabels"
+        [options]="barChartOptions"
+        [legend]="barChartLegend"
+        [chartType]="barChartType"
+        (chartHover)="chartHovered($event)"
+        (chartClick)="chartClicked($event)">
+      </canvas>
+  </div>
+</div>
+</div>
 </div>
