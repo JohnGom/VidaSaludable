@@ -1,8 +1,11 @@
+import { IntervencionesService } from './../../servicios/offline/intervencion/intervenciones.service';
 import { INCREMENT_PUNTAJE } from './../../reducer/reducers';
 import { Component, OnInit } from '@angular/core';
 import { InterpretationService } from './../../servicios/interpretations/interpretation.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
+import _ from 'lodash';
+
 
 @Component({
   selector: 'app-nutricional',
@@ -36,10 +39,12 @@ export class NutricionalComponent implements OnInit {
   public recoSugar: string;
   public recoFood: string;
   public recoWater: string;
+  public onlineOffline: boolean = navigator.onLine;
   
   constructor(private service: InterpretationService,
               private store:Store<any>,
-              private router: Router) { 
+              private router: Router,
+              private _service: IntervencionesService) { 
     this.store.select('people').subscribe((result) => {
       this.jornada = result.jornada;
       this.idPar = result.idpar;
@@ -52,14 +57,33 @@ export class NutricionalComponent implements OnInit {
   }
 
   getQuestions() {
-    this.service.getQuestions('nutricional').subscribe(
-      data => {
-      this.questions = data.json();
-    });
-    this.service.getInfoInterp('nutricion').subscribe(
-      data => {
-      this.infoInter = data.json();
-    });
+    if (this.onlineOffline === true) {
+      this.service.getQuestions('nutricional').subscribe(
+        data => {
+        this.questions = data.json();
+      });
+      this.service.getInfoInterp('nutricion').subscribe(
+        data => {
+        this.infoInter = data.json();
+      });
+    } else {
+      this._service.getQuestionByDimen().
+      then(data => {
+        let info: any = data;
+        this.questions = _.filter(info, (o) => { return o.dimension === 'nutricional' });
+        console.log(this.questions);
+      }).catch(error => {
+        console.error(error);
+      });
+      this._service.getInfoInterByDimen().
+      then(data => {
+        let info: any = data;
+        this.infoInter = _.filter(info, (o) => { return o.dimension === 'nutricion' });
+        console.log(this.infoInter);
+      }).catch(error => {
+        console.error(error);
+      });
+    }
   }
 
   infoFruit(value) {
@@ -203,30 +227,53 @@ export class NutricionalComponent implements OnInit {
    saveData(){
     this.increPuntaje();
     let infoFisiologico = [];
-    infoFisiologico.push({ question: this.questions[0].id, intervened: this.idPar, jornada: this.jornada, respuesta: this.fruits })
-    infoFisiologico.push({ question: this.questions[1].id, intervened: this.idPar, jornada: this.jornada, respuesta: this.vegetables })
-    infoFisiologico.push({ question: this.questions[2].id, intervened: this.idPar, jornada: this.jornada, respuesta: this.grease })
-    infoFisiologico.push({ question: this.questions[3].id, intervened: this.idPar, jornada: this.jornada, respuesta: this.sal })
-    infoFisiologico.push({ question: this.questions[4].id, intervened: this.idPar, jornada: this.jornada, respuesta: this.sugar })
-    infoFisiologico.push({ question: this.questions[5].id, intervened: this.idPar, jornada: this.jornada, respuesta: this.foods })
-    infoFisiologico.push({ question: this.questions[6].id, intervened: this.idPar, jornada: this.jornada, respuesta: this.water })
-    this.service.detalleInterven(infoFisiologico).subscribe((result: any) => {
-       console.log(result);
-    });
+    infoFisiologico.push({ question: parseInt(this.questions[0].id), intervened: parseInt(this.idPar), jornada: parseInt(this.jornada), respuesta: this.fruits })
+    infoFisiologico.push({ question: parseInt(this.questions[1].id), intervened: parseInt(this.idPar), jornada: parseInt(this.jornada), respuesta: this.vegetables })
+    infoFisiologico.push({ question: parseInt(this.questions[2].id), intervened: parseInt(this.idPar), jornada: parseInt(this.jornada), respuesta: this.grease })
+    infoFisiologico.push({ question: parseInt(this.questions[3].id), intervened: parseInt(this.idPar), jornada: parseInt(this.jornada), respuesta: this.sal })
+    infoFisiologico.push({ question: parseInt(this.questions[4].id), intervened: parseInt(this.idPar), jornada: parseInt(this.jornada), respuesta: this.sugar })
+    infoFisiologico.push({ question: parseInt(this.questions[5].id), intervened: parseInt(this.idPar), jornada: parseInt(this.jornada), respuesta: this.foods })
+    infoFisiologico.push({ question: parseInt(this.questions[6].id), intervened: parseInt(this.idPar), jornada: parseInt(this.jornada), respuesta: this.water })
+    if (this.onlineOffline === true) {
+      this.service.detalleInterven(infoFisiologico).subscribe((result: any) => {
+        console.log(result);
+      });
+    } else {
+      for(let i = 0; i<infoFisiologico.length; i++) {
+      this._service.addDetalleInter(infoFisiologico[i]).
+      then(data => {
+        console.log(data);
+      }).catch(error => {
+        console.error(error);
+      });
+      }
+    }
 
     let infoInterp = [];
-    infoInterp.push({ intervencion: this.intervencion, participante: this.idPar, nombre: 'Frutas', resultado: this.interFruits, recomendacion: this.recoFruits, dimension: 'Nutrición' });
-    infoInterp.push({ intervencion: this.intervencion, participante: this.idPar, nombre: 'Verduras', resultado: this.interVegetable, recomendacion: this.recoVegetable, dimension: 'Nutrición' });
-    infoInterp.push({ intervencion: this.intervencion, participante: this.idPar, nombre: 'Grasas', resultado: this.interGrease, recomendacion: this.recoGrease, dimension: 'Nutrición' });
-    infoInterp.push({ intervencion: this.intervencion, participante: this.idPar, nombre: 'Sal', resultado: this.interSal, recomendacion: this.recoSal, dimension: 'Nutrición' });
-    infoInterp.push({ intervencion: this.intervencion, participante: this.idPar, nombre: 'Azúcar', resultado: this.interSugar, recomendacion: this.recoSugar, dimension: 'Nutrición' });
-    infoInterp.push({ intervencion: this.intervencion, participante: this.idPar, nombre: 'Comidas diarias', resultado: this.interFood, recomendacion: this.recoFood, dimension: 'Nutrición' });
-    infoInterp.push({ intervencion: this.intervencion, participante: this.idPar, nombre: 'Agua', resultado: this.interWater, recomendacion: this.recoWater, dimension: 'Nutrición' });
-    this.service.insertInterpretacion(infoInterp).subscribe((result: any) => {
-       if(result.text() == 'ok') {
-        this.router.navigate(['/salud/jorActiva/sueno']);
-      }
-    });
+    infoInterp.push({ intervencion: parseInt(this.intervencion), participante: parseInt(this.idPar), nombre: 'Frutas', resultado: this.interFruits, recomendacion: this.recoFruits, dimension: 'Nutrición' });
+    infoInterp.push({ intervencion: parseInt(this.intervencion), participante: parseInt(this.idPar), nombre: 'Verduras', resultado: this.interVegetable, recomendacion: this.recoVegetable, dimension: 'Nutrición' });
+    infoInterp.push({ intervencion: parseInt(this.intervencion), participante: parseInt(this.idPar), nombre: 'Grasas', resultado: this.interGrease, recomendacion: this.recoGrease, dimension: 'Nutrición' });
+    infoInterp.push({ intervencion: parseInt(this.intervencion), participante: parseInt(this.idPar), nombre: 'Sal', resultado: this.interSal, recomendacion: this.recoSal, dimension: 'Nutrición' });
+    infoInterp.push({ intervencion: parseInt(this.intervencion), participante: parseInt(this.idPar), nombre: 'Azúcar', resultado: this.interSugar, recomendacion: this.recoSugar, dimension: 'Nutrición' });
+    infoInterp.push({ intervencion: parseInt(this.intervencion), participante: parseInt(this.idPar), nombre: 'Comidas diarias', resultado: this.interFood, recomendacion: this.recoFood, dimension: 'Nutrición' });
+    infoInterp.push({ intervencion: parseInt(this.intervencion), participante: parseInt(this.idPar), nombre: 'Agua', resultado: this.interWater, recomendacion: this.recoWater, dimension: 'Nutrición' });
+    if (this.onlineOffline === true) {
+      this.service.insertInterpretacion(infoInterp).subscribe((result: any) => {
+        if(result.text() == 'ok') {
+          this.router.navigate(['/salud/jorActiva/sueno']);
+        }
+      });
+    } else { 
+      for(let i = 0; i<infoInterp.length; i++) { 
+      this._service.addInterpretacion(infoInterp[i]).
+      then(data => {
+
+      }).catch(error => {
+        console.error(error);
+      });
+    }
+    this.router.navigate(['/salud/jorActiva/sueno']);
+    }
   }
 
 }

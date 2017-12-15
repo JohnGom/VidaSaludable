@@ -1,3 +1,4 @@
+import { IntervencionesService } from './../../servicios/offline/intervencion/intervenciones.service';
 import { INFO_INTERPRETATION } from './../../reducer/reducers';
 import { InterpretationService } from './../../servicios/interpretations/interpretation.service';
 import { BenefitedService } from './../../servicios/benefited/benefited.service';
@@ -12,7 +13,7 @@ import { Store } from '@ngrx/store';
 })
 export class SociodemograficosComponent implements OnInit {
   dataSource: object;
-  public id: number;
+  public id: any;
 	public typeId: string;
 	public education: string;
 	public firstname: string;
@@ -26,6 +27,8 @@ export class SociodemograficosComponent implements OnInit {
 	public religion: string;
   public jornada: any;
 
+  public onlineOffline: boolean = navigator.onLine;
+
   generos = [{name: 'Masculino'}, {name: 'Femenino'}];
   estadosCiv = [{name: 'Soltero'}, {name: 'Unión Libre'}, {name: 'Casado'}, {name: 'Separado/divorciado'}, {name: 'Viudo'}];
   tiposAseg = [{name: 'No asegurado'},{name: 'Subsidiado'},{name: 'Contributivo'},{name: 'Regímenes especiales'}]
@@ -37,7 +40,8 @@ export class SociodemograficosComponent implements OnInit {
   constructor(private service: BenefitedService,
               private service2: InterpretationService,
               private store:Store<any>,
-              private router: Router) {
+              private router: Router,
+              private _service: IntervencionesService) {
     this.store.select('people').subscribe((result) => {
       this.jornada = result.jornada;
     });
@@ -50,7 +54,6 @@ export class SociodemograficosComponent implements OnInit {
     localStorage.setItem('idparticipante', id.toString());
     this.service.getInfoClient(id).subscribe(
       data => {
-        console.log(data.json());
         let info = data.json();
         this.id = info.id;
         this.typeId = info.typeId;
@@ -59,7 +62,7 @@ export class SociodemograficosComponent implements OnInit {
         this.lastname = info.lastname;
         this.birthdate = info.birthdate;  
         this.gender = info.gender;
-        this.stratus = info.stratus;  
+        this.stratus = 2;  
         this.civilStatus = info.civilStatus;    
         this.eps = info.eps;    
         this.occupation = info.occupation;    
@@ -76,28 +79,60 @@ export class SociodemograficosComponent implements OnInit {
     participante.lastname = this.lastname;
     participante.birthdate = this.birthdate;
     participante.gender = this.gender;
-    participante.stratus = this.stratus;
+    participante.stratus = 2;
     participante.civilStatus = this.civilStatus;
     participante.eps = this.eps;
     participante.occupation = this.occupation;
     participante.religion = this.religion;
-    this.service2.insertParticipante(participante).subscribe((result: any) => {
-      console.log(result);
-      let intervencion: any = new Object;
-      intervencion.jornada = this.jornada;
-      intervencion.participante = this.id;
 
-      this.service2.insertIntervencion(intervencion).subscribe((result: any) => {
-        let info: any = new Object;
-          info.jornada = this.jornada;
-          info.idpar = this.id;
-          info.date = this.birthdate;
-          info.gender = this.gender;
-          info.inter = parseInt(result.text())
-          this.store.dispatch({ type: INFO_INTERPRETATION, payload: info});
+    if(this.onlineOffline === true) {     
+      this.service2.insertParticipante(participante).subscribe((result: any) => {
+        console.log(result);
+        let intervencion: any = new Object;
+        intervencion.jornada = parseInt(this.jornada);
+        intervencion.participante = parseInt(this.id);
+
+        this.service2.insertIntervencion(intervencion).subscribe((result: any) => {
+          let info: any = new Object;
+            info.jornada = this.jornada;
+            info.idpar = this.id;
+            info.date = this.birthdate;
+            info.gender = this.gender;
+            info.inter = parseInt(result.text());
+            info.name = this.firstname + ' ' + this.lastname;
+            this.store.dispatch({ type: INFO_INTERPRETATION, payload: info});
+        });
+        this.router.navigate(['/salud/jorActiva/fisio']);
       });
-    });
+    } else {
+      this._service.addParticipante(participante).then(rowsAdded => {
+        console.log(this.jornada);
+        let intervencion: any = new Object;
+        intervencion.jornada = parseInt(this.jornada);
+        intervencion.participante = parseInt(this.id);
+        intervencion.observacion = '';
+        intervencion.resultado = '';
+        intervencion.fechaInter = '';
+        intervencion.fechaSegui = '';
+        intervencion.correo = '';
 
-    this.router.navigate(['/salud/jorActiva/fisio'])
+        this._service.addIntervenciones(intervencion).then(rowsAdded => {
+          let info: any = new Object;
+            info.jornada = this.jornada;
+            info.idpar = this.id;
+            info.date = this.birthdate;
+            info.gender = this.gender;
+            info.inter = rowsAdded;
+            info.name = this.firstname + ' ' + this.lastname;
+            console.log(rowsAdded);
+            this.store.dispatch({ type: INFO_INTERPRETATION, payload: info});
+        }).catch(error => {
+          console.error(error);
+        });
+        this.router.navigate(['/salud/jorActiva/fisio']);
+      }).catch(error => {
+        console.error(error);
+      });
+    }
   }
 }

@@ -10,9 +10,18 @@ export class InterpretationService {
     let URL = `http://localhost:8080/jersey-starterkit/rest/interpretation/getquestions?dimension=${dimension}`;
     return this.http.get(URL)
 }
+public getAllQuestions() {
+    let URL = 'http://localhost:8080/jersey-starterkit/rest/interpretation/allquestions';
+    return this.http.get(URL)
+}
 
 public getInfoInterp(dimension: string) {
     let URL = `http://localhost:8080/jersey-starterkit/rest/interpretation/infoInterpretaciones?dimension=${dimension}`;
+    return this.http.get(URL)
+}
+
+public getAllInfoInterp() {
+    let URL = 'http://localhost:8080/jersey-starterkit/rest/interpretation/allinfoInterpretaciones';
     return this.http.get(URL)
 }
 

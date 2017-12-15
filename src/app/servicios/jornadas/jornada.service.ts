@@ -8,7 +8,9 @@ export class JornadaService {
 
  }
  getJornadas(id: number) {
+    let headers = new Headers({ 'Content-Type': 'application/json;charset=UTF-8' });
     let URL = `http://localhost:8080/jersey-starterkit/rest/jornada/getjornadabyencuestador?encuestador=${id}`;
+    let options = new RequestOptions({ headers: headers });
     return this.http.get(URL)
  }
 

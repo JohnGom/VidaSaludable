@@ -1,7 +1,9 @@
+import { IntervencionesService } from './../../servicios/offline/intervencion/intervenciones.service';
 import { InterpretationService } from './../../servicios/interpretations/interpretation.service';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Router, ActivatedRoute } from '@angular/router';
+import _ from 'lodash';
 
 @Component({
   selector: 'app-bioquimicas',
@@ -33,9 +35,12 @@ export class BioquimicasComponent implements OnInit {
   public idPar;
   public intervencion;
 
+  public onlineOffline: boolean = navigator.onLine;
+
   constructor(private store:Store<any>, 
   private service: InterpretationService, 
-  private router: Router) {
+  private router: Router,
+  private _service: IntervencionesService) {
     this.store.select('people').subscribe((result) => {
       this.jornada = result.jornada;
       this.idPar = result.idpar;
@@ -55,11 +60,21 @@ export class BioquimicasComponent implements OnInit {
   }
 
   getQuestions() {
-    this.service.getQuestions('bioquimica').subscribe(
-      data => {
-      this.questions = data.json();
-      console.log(this.questions);
-    })
+    if (this.onlineOffline === true) {
+      this.service.getQuestions('bioquimica').subscribe(
+        data => {
+        this.questions = data.json();
+      });
+    } else {
+      this._service.getQuestionByDimen().
+      then(data => {
+        let info: any = data;
+        this.questions = _.filter(info, (o) => { return o.dimension === 'bioquimica' });
+        console.log(this.questions);
+      }).catch(error => {
+        console.error(error);
+      });
+    }
   }
 
   infoDextrometria(value) {
@@ -125,28 +140,51 @@ export class BioquimicasComponent implements OnInit {
 
   saveData(){
     let infoFisiologico = [];
-    infoFisiologico.push({ question: this.questions[0].id, intervened: this.idPar, jornada: this.jornada, respuesta: this.dextrom });
-    infoFisiologico.push({ question: this.questions[1].id, intervened: this.idPar, jornada: this.jornada, respuesta: this.colesterol });
-    infoFisiologico.push({ question: this.questions[2].id, intervened: this.idPar, jornada: this.jornada, respuesta: this.trigliceridos });
-    infoFisiologico.push({ question: this.questions[3].id, intervened: this.idPar, jornada: this.jornada, respuesta: this.hdl });
-    infoFisiologico.push({ question: this.questions[4].id, intervened: this.idPar, jornada: this.jornada, respuesta: this.ldl });
-    infoFisiologico.push({ question: this.questions[5].id, intervened: this.idPar, jornada: this.jornada, respuesta: this.comorbilidad });
-    infoFisiologico.push({ question: this.questions[6].id, intervened: this.idPar, jornada: this.jornada, respuesta: this.comorbilidadCon });
-    this.service.detalleInterven(infoFisiologico).subscribe((result: any) => {
-       console.log(result);
-    });
+    infoFisiologico.push({ question: parseInt(this.questions[0].id), intervened: parseInt(this.idPar), jornada: parseInt(this.jornada), respuesta: this.dextrom });
+    infoFisiologico.push({ question: parseInt(this.questions[1].id), intervened: parseInt(this.idPar), jornada: parseInt(this.jornada), respuesta: this.colesterol });
+    infoFisiologico.push({ question: parseInt(this.questions[2].id), intervened: parseInt(this.idPar), jornada: parseInt(this.jornada), respuesta: this.trigliceridos });
+    infoFisiologico.push({ question: parseInt(this.questions[3].id), intervened: parseInt(this.idPar), jornada: parseInt(this.jornada), respuesta: this.hdl });
+    infoFisiologico.push({ question: parseInt(this.questions[4].id), intervened: parseInt(this.idPar), jornada: parseInt(this.jornada), respuesta: this.ldl });
+    infoFisiologico.push({ question: parseInt(this.questions[5].id), intervened: parseInt(this.idPar), jornada: parseInt(this.jornada), respuesta: this.comorbilidad });
+    infoFisiologico.push({ question: parseInt(this.questions[6].id), intervened: parseInt(this.idPar), jornada: parseInt(this.jornada), respuesta: this.comorbilidadCon });
+    if (this.onlineOffline === true) {
+      this.service.detalleInterven(infoFisiologico).subscribe((result: any) => {
+        console.log(result);
+      });
+    } else {
+      for(let i = 0; i<infoFisiologico.length; i++) {
+      this._service.addDetalleInter(infoFisiologico[i]).
+      then(data => {
+        console.log(data);
+      }).catch(error => {
+        console.error(error);
+      });
+      }
+    }
 
     let infoInterp = [];
-    infoInterp.push({ intervencion: this.intervencion, participante: this.idPar, nombre: 'Categoría dextrometrica', resultado: this.interDextrom, recomendacion: '', dimension: 'Bioquímica' });
-    infoInterp.push({ intervencion: this.intervencion, participante: this.idPar, nombre: 'Categoría Colesterol', resultado: this.interColest, recomendacion: '', dimension: 'Bioquímica' });
-    infoInterp.push({ intervencion: this.intervencion, participante: this.idPar, nombre: 'Categoría Triglicéridos', resultado: this.interTriglic, recomendacion: '', dimension: 'Bioquímica' });
-    infoInterp.push({ intervencion: this.intervencion, participante: this.idPar, nombre: 'Categoría HDL', resultado: this.interHdl, recomendacion: '', dimension: 'Bioquímica' });
-    infoInterp.push({ intervencion: this.intervencion, participante: this.idPar, nombre: 'Categoría LDL', resultado: this.interLdl, recomendacion: '', dimension: 'Bioquímica' });
-    this.service.insertInterpretacion(infoInterp).subscribe((result: any) => {
-       if(result.text() == 'ok') {
-         this.router.navigate(['/salud/jorActiva/control']);
-      }
-    });
+    infoInterp.push({ intervencion: parseInt(this.intervencion), participante: parseInt(this.idPar), nombre: 'Categoría dextrometrica', resultado: this.interDextrom, recomendacion: '', dimension: 'Bioquímica' });
+    infoInterp.push({ intervencion: parseInt(this.intervencion), participante: parseInt(this.idPar), nombre: 'Categoría Colesterol', resultado: this.interColest, recomendacion: '', dimension: 'Bioquímica' });
+    infoInterp.push({ intervencion: parseInt(this.intervencion), participante: parseInt(this.idPar), nombre: 'Categoría Triglicéridos', resultado: this.interTriglic, recomendacion: '', dimension: 'Bioquímica' });
+    infoInterp.push({ intervencion: parseInt(this.intervencion), participante: parseInt(this.idPar), nombre: 'Categoría HDL', resultado: this.interHdl, recomendacion: '', dimension: 'Bioquímica' });
+    infoInterp.push({ intervencion: parseInt(this.intervencion), participante: parseInt(this.idPar), nombre: 'Categoría LDL', resultado: this.interLdl, recomendacion: '', dimension: 'Bioquímica' });
+    if (this.onlineOffline === true) {
+      this.service.insertInterpretacion(infoInterp).subscribe((result: any) => {
+        if(result.text() == 'ok') {
+          this.router.navigate(['/salud/jorActiva/control']);
+        }
+      });
+    } else {
+      for(let i = 0; i<infoInterp.length; i++) {
+      this._service.addInterpretacion(infoInterp[i]).
+      then(data => {
+        
+      }).catch(error => {
+        console.error(error);
+      });
+    }
+    this.router.navigate(['/salud/jorActiva/control']);
+    }
   }
 
 }

@@ -1,3 +1,4 @@
+import { BaseService } from './../servicios/offline/base/base.service';
 import { InterpretationService } from './../servicios/interpretations/interpretation.service';
 import { AuthserviceService } from './../servicios/authservice.service';
 import { Component, OnInit } from '@angular/core';
@@ -20,7 +21,8 @@ export class EncuestadorComponent implements OnInit {
   extraSlides;
   constructor(private service: AuthserviceService,
               public router: Router,
-              public route: ActivatedRoute) { 
+              public route: ActivatedRoute,
+              public _service: BaseService) { 
     if(this.router.routerState.snapshot.url='/salud'){
       this.validar === true;
     } else {

@@ -1,8 +1,10 @@
+import { IntervencionesService } from './../../servicios/offline/intervencion/intervenciones.service';
 import { INCREMENT_PUNTAJE } from './../../reducer/reducers';
 import { Component, OnInit } from '@angular/core';
 import { InterpretationService } from './../../servicios/interpretations/interpretation.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
+import _ from 'lodash';
 
 @Component({
   selector: 'app-conductas',
@@ -32,10 +34,12 @@ export class ConductasComponent implements OnInit {
   public jornada: any;
   public idPar: any;
   public intervencion: any;
+  public onlineOffline: boolean = navigator.onLine;
 
   constructor(private service: InterpretationService,
               private store:Store<any>,
-              private router: Router) { 
+              private router: Router,
+              private _service: IntervencionesService) { 
     this.store.select('people').subscribe((result) => {
       this.jornada = result.jornada;
       this.idPar = result.idpar;
@@ -48,15 +52,34 @@ export class ConductasComponent implements OnInit {
   }
 
   getQuestions() {
-    this.service.getQuestions('riesgo').subscribe(
-      data => {
-      this.questions = data.json();
-    });
+    if (this.onlineOffline === true) {
+      this.service.getQuestions('riesgo').subscribe(
+        data => {
+        this.questions = data.json();
+      });
 
-    this.service.getInfoInterp('riesgo').subscribe(
-      data => {
-      this.infoInter = data.json();
-    });
+      this.service.getInfoInterp('riesgo').subscribe(
+        data => {
+        this.infoInter = data.json();
+      });
+    } else {
+      this._service.getQuestionByDimen().
+      then(data => {
+        let info: any = data;
+        this.questions = _.filter(info, (o) => { return o.dimension === 'riesgo' });
+        console.log(this.questions);
+      }).catch(error => {
+        console.error(error);
+      });
+      this._service.getInfoInterByDimen().
+      then(data => {
+        let info: any = data;
+        this.infoInter = _.filter(info, (o) => { return o.dimension === 'riesgo' });
+        console.log(this.infoInter);
+      }).catch(error => {
+        console.error(error);
+      });
+    }
   }
 
   onChangeInfoSmoke(deviceValue) {
@@ -177,29 +200,52 @@ export class ConductasComponent implements OnInit {
     this.increPuntaje();
 
     let infoRiesgo = [];
-    infoRiesgo.push({ question: this.questions[0].id, intervened: this.idPar, jornada: this.jornada, respuesta: this.smoke });
-    infoRiesgo.push({ question: this.questions[1].id, intervened: this.idPar, jornada: this.jornada, respuesta: this.smoke1 });
-    infoRiesgo.push({ question: this.questions[2].id, intervened: this.idPar, jornada: this.jornada, respuesta: this.smoke2 });
-    infoRiesgo.push({ question: this.questions[3].id, intervened: this.idPar, jornada: this.jornada, respuesta: this.smoke3 });
-    infoRiesgo.push({ question: this.questions[4].id, intervened: this.idPar, jornada: this.jornada, respuesta: this.smoke4 });
-    infoRiesgo.push({ question: this.questions[5].id, intervened: this.idPar, jornada: this.jornada, respuesta: this.drinkBeer });
-    infoRiesgo.push({ question: this.questions[6].id, intervened: this.idPar, jornada: this.jornada, respuesta: this.drinkBeer1 });
-    infoRiesgo.push({ question: this.questions[7].id, intervened: this.idPar, jornada: this.jornada, respuesta: this.drinkBeer2 });
-    infoRiesgo.push({ question: this.questions[8].id, intervened: this.idPar, jornada: this.jornada, respuesta: this.drinkBeer3 });
-    infoRiesgo.push({ question: this.questions[8].id, intervened: this.idPar, jornada: this.jornada, respuesta: this.drinkBeer4 })
-    infoRiesgo.push({ question: this.questions[8].id, intervened: this.idPar, jornada: this.jornada, respuesta: this.stress })
-    this.service.detalleInterven(infoRiesgo).subscribe((result: any) => {
-       console.log(result);
-    });
+    infoRiesgo.push({ question: parseInt(this.questions[0].id), intervened: parseInt(this.idPar), jornada: parseInt(this.jornada), respuesta: this.smoke });
+    infoRiesgo.push({ question: parseInt(this.questions[1].id), intervened: parseInt(this.idPar), jornada: parseInt(this.jornada), respuesta: this.smoke1 });
+    infoRiesgo.push({ question: parseInt(this.questions[2].id), intervened: parseInt(this.idPar), jornada: parseInt(this.jornada), respuesta: this.smoke2 });
+    infoRiesgo.push({ question: parseInt(this.questions[3].id), intervened: parseInt(this.idPar), jornada: parseInt(this.jornada), respuesta: this.smoke3 });
+    infoRiesgo.push({ question: parseInt(this.questions[4].id), intervened: parseInt(this.idPar), jornada: parseInt(this.jornada), respuesta: this.smoke4 });
+    infoRiesgo.push({ question: parseInt(this.questions[5].id), intervened: parseInt(this.idPar), jornada: parseInt(this.jornada), respuesta: this.drinkBeer });
+    infoRiesgo.push({ question: parseInt(this.questions[6].id), intervened: parseInt(this.idPar), jornada: parseInt(this.jornada), respuesta: this.drinkBeer1 });
+    infoRiesgo.push({ question: parseInt(this.questions[7].id), intervened: parseInt(this.idPar), jornada: parseInt(this.jornada), respuesta: this.drinkBeer2 });
+    infoRiesgo.push({ question: parseInt(this.questions[8].id), intervened: parseInt(this.idPar), jornada: parseInt(this.jornada), respuesta: this.drinkBeer3 });
+    infoRiesgo.push({ question: parseInt(this.questions[8].id), intervened: parseInt(this.idPar), jornada: parseInt(this.jornada), respuesta: this.drinkBeer4 })
+    infoRiesgo.push({ question: parseInt(this.questions[8].id), intervened: parseInt(this.idPar), jornada: parseInt(this.jornada), respuesta: this.stress })
+    if (this.onlineOffline === true) {
+      this.service.detalleInterven(infoRiesgo).subscribe((result: any) => {
+        console.log(result);
+      });
+    } else {
+      for(let i = 0; i<infoRiesgo.length; i++) {
+      this._service.addDetalleInter(infoRiesgo[i]).
+      then(data => {
+        console.log(data);
+      }).catch(error => {
+        console.error(error);
+      });
+      }
+    }
 
     let infoInterp = [];
-    infoInterp.push({ intervencion: this.intervencion, participante: this.idPar, nombre: 'Fumar', resultado: this.interSmoke, recomendacion: this.recoSmoke, dimension: 'Conductas de Riesgo' });
-    infoInterp.push({ intervencion: this.intervencion, participante: this.idPar, nombre: 'Alcohol', resultado: this.interDrinkBeer, recomendacion: this.recoDrinkBeer, dimension: 'Conductas de Riesgo' });
-    infoInterp.push({ intervencion: this.intervencion, participante: this.idPar, nombre: 'Estrés', resultado: this.interStress, recomendacion: this.recoStress, dimension: 'Conductas de Riesgo' });
-    this.service.insertInterpretacion(infoInterp).subscribe((result: any) => {
-       if(result.text() == 'ok') {
-        this.router.navigate(['/salud/jorActiva/ejercicio']);
-      }
-    });    
+    infoInterp.push({ intervencion: parseInt(this.intervencion), participante: parseInt(this.idPar), nombre: 'Fumar', resultado: this.interSmoke, recomendacion: this.recoSmoke, dimension: 'Conductas de Riesgo' });
+    infoInterp.push({ intervencion: parseInt(this.intervencion), participante: parseInt(this.idPar), nombre: 'Alcohol', resultado: this.interDrinkBeer, recomendacion: this.recoDrinkBeer, dimension: 'Conductas de Riesgo' });
+    infoInterp.push({ intervencion: parseInt(this.intervencion), participante: parseInt(this.idPar), nombre: 'Estrés', resultado: this.interStress, recomendacion: this.recoStress, dimension: 'Conductas de Riesgo' });
+    if (this.onlineOffline === true) {
+      this.service.insertInterpretacion(infoInterp).subscribe((result: any) => {
+        if(result.text() == 'ok') {
+          this.router.navigate(['/salud/jorActiva/ejercicio']);
+        }
+      });
+    } else {
+      for(let i = 0; i<infoInterp.length; i++) {
+      this._service.addInterpretacion(infoInterp[i]).
+      then(data => {
+        
+      }).catch(error => {
+        console.error(error);
+      });
+    }
+    this.router.navigate(['/salud/jorActiva/ejercicio']);
+    }   
   }
 }

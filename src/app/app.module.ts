@@ -1,3 +1,6 @@
+import { IntervencionesService } from './servicios/offline/intervencion/intervenciones.service';
+import { JornadasService } from './servicios/offline/jornadas/jornada.service';
+import { BaseService } from './servicios/offline/base/base.service';
 import { TableDataSource } from './coordinador/reportes/table-data-source/table-data-source.component';
 import { SendEmailComponent } from './intervencion/presentacion-final/sendemail/send-email.component';
 import { mainReducer, peopleReducer } from './reducer/reducers';
@@ -43,6 +46,7 @@ import { MatDatepickerModule,
   MatSortModule,
   MatPaginatorModule,
   MatChipsModule,
+  MatProgressSpinnerModule,
   MatButtonToggleModule } from '@angular/material';
 import { StoreModule } from '@ngrx/store';
 import { ChartsModule } from 'ng2-charts';
@@ -113,6 +117,7 @@ import { ReportesComponent } from './coordinador/reportes/reportes.component';
     MatDatepickerModule,
     MatButtonModule,
     MatChipsModule,
+    MatProgressSpinnerModule,
     MatCardModule,
     MatTabsModule,
     MatTableModule,
@@ -134,6 +139,7 @@ import { ReportesComponent } from './coordinador/reportes/reportes.component';
   providers: [
     AuthGuard,
     ProgramService,
+    IntervencionesService,
     JornadaService,
     AuthserviceService,
     ServiceModalService,
@@ -148,7 +154,9 @@ import { ReportesComponent } from './coordinador/reportes/reportes.component';
     UpdateUserComponent,
     UserService,
     BenefitedService,
-    ListEncargadosComponent 
+    ListEncargadosComponent,
+    BaseService,
+    JornadasService
   ],
   entryComponents: [ 
     NewProgramComponent,
